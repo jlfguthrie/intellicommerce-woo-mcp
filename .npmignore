@@ -71,7 +71,6 @@ package-lock.json
 
 # SECURITY: Internal documentation and session files
 docs/internal/
-docs/scripts/
 SESSION_*.md
 MCP_STATUS_*.md
 PROJECT_STATUS.md

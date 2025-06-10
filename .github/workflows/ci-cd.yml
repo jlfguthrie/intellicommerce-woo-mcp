@@ -34,11 +34,11 @@ jobs:
     - name: 📦 Install dependencies
       run: npm ci
 
-    - name: 🔍 Lint code
-      run: npm run lint
+    - name: 🔍 Security Check
+      run: npm run security:check
 
-    - name: 🎨 Check formatting
-      run: npm run format:check
+    - name: 📂 Structure Check
+      run: npm run structure:check
 
     - name: 🏗️ Type check
       run: npm run typecheck
