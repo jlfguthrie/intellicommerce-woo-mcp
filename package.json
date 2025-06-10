@@ -21,10 +21,16 @@
     "lint:fix": "echo \"✨ Linting disabled for upstream compatibility - IntelliCommerce✨ Made with 🧡 in Cape Town 🇿🇦\"",
     "format": "prettier --write \"src/**/*.{ts,js,json,md}\" || true",
     "format:check": "prettier --check \"src/**/*.{ts,js,json,md}\" || true",
-    "test": "echo \"Tests coming soon! Made with 🧡 in Cape Town 🇿🇦\" && exit 0",
-    "test:unit": "jest",
-    "test:integration": "npm run mcp:inspect -- --timeout 10000",
-    "test:all": "npm run test:unit && npm run test:integration",
+    "test": "npm run test:unit && npm run test:integration && npm run test:mcp && npm run test:e2e && npm run test:security",
+    "test:unit": "jest --testPathPattern=tests/.*\\.test\\.ts$ --testNamePattern=\"Unit Tests\"",
+    "test:integration": "jest --testPathPattern=tests/integration\\.test\\.ts$",
+    "test:mcp": "jest --testPathPattern=tests/mcp-protocol\\.test\\.ts$",
+    "test:e2e": "jest --testPathPattern=tests/e2e\\.test\\.ts$",
+    "test:security": "jest --testPathPattern=tests/security\\.test\\.ts$",
+    "test:all": "npm run test",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:ci": "jest --ci --coverage --watchAll=false",
     "typecheck": "tsc --noEmit",
     "validate": "npm run typecheck && npm run test:all",
     "security:check": "scripts/security-check.sh",
@@ -54,7 +60,9 @@
     "release:patch": "standard-version --release-as patch",
     "release:dry": "standard-version --dry-run",
     "publish:npm": "npm run build && npm publish",
+    "publish:npm:dry": "npm run build && npm publish --dry-run",
     "publish:auto": "npm run release && npm run publish:npm && git push --follow-tags origin main",
+    "publish:test": "npm run build && npm pack && echo \"Package created successfully for testing\"",
     "husky:install": "husky install",
     "prestart": "npm run build",
     "prepare": "husky",
@@ -81,6 +89,30 @@
     "url": "https://intellicommerce.co.za"
   },
   "license": "GPL-3.0-or-later",
+  "homepage": "https://intellicommerce.co.za",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jlfguthrie/intellicommerce-woo-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jlfguthrie/intellicommerce-woo-mcp/issues",
+    "email": "info@intellicommerce.co.za"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/jlfguthrie"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "build/",
+    "bin/",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.4.1",
     "axios": "^1.6.8",

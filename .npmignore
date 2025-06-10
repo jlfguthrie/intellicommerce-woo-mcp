@@ -95,6 +95,9 @@ node_modules/
 # Temporary files
 *.tmp
 *.temp
+*.new
+*PLAN*.md
+*HANDOVER*.md
 
 # Project status (internal)
 PROJECT_STATUS.md
