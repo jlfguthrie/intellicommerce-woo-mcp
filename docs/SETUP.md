@@ -77,15 +77,14 @@ Create or update `.vscode/mcp.json` in your workspace:
   "mcpServers": {
     "intellicommerce-woo": {
       "command": "node",
-      "args": ["/absolute/path/to/intellicommerce-woo-mcp/build/server.js"],
-      "env": {
-        "WOOCOMMERCE_API_URL": "https://your-store.com",
-        "WOOCOMMERCE_CONSUMER_KEY": "ck_your_key",
-        "WOOCOMMERCE_CONSUMER_SECRET": "cs_your_secret"
-      }
+      "args": ["${workspaceFolder}/build/server.js"],
+      "env": {}
     }
   }
 }
+```
+
+> **🔐 Security:** The server automatically loads credentials from your `.env` file. No need to hardcode them in the MCP configuration!
 ```
 
 ### Claude Desktop

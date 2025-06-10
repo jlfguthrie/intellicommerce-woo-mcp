@@ -157,3 +157,4 @@ test-connection.*
 # Testing
 .jest/
 .test-results/
+*.mcp.json

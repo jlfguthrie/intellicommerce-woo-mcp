@@ -125,15 +125,14 @@ Create `.vscode/mcp.json`:
   "mcpServers": {
     "intellicommerce-woo": {
       "command": "node",
-      "args": ["./build/server.js"],
-      "env": {
-        "WOOCOMMERCE_API_URL": "https://your-store.com",
-        "WOOCOMMERCE_CONSUMER_KEY": "ck_your_key",
-        "WOOCOMMERCE_CONSUMER_SECRET": "cs_your_secret"
-      }
+      "args": ["${workspaceFolder}/build/server.js"],
+      "env": {}
     }
   }
 }
+```
+
+> **🔐 Security Note:** Credentials are loaded from your `.env` file, not hardcoded in the MCP configuration.
 ```
 
 </details>
@@ -141,6 +140,13 @@ Create `.vscode/mcp.json`:
 <details>
 <summary><strong>🖥️ Claude Desktop</strong></summary>
 
+Add to `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "intellicommerce-woo": {
+      "command": "node",
 Add to `claude_desktop_config.json`:
 
 ```json
@@ -157,6 +163,9 @@ Add to `claude_desktop_config.json`:
     }
   }
 }
+```
+
+> **💡 Note:** For Claude Desktop, you need to include credentials in the config file since it doesn't automatically load `.env` files.
 ```
 
 </details>

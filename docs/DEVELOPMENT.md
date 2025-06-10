@@ -192,14 +192,13 @@ WOOCOMMERCE_CONSUMER_SECRET=cs_xxx
     "intellicommerce-woo": {
       "command": "node",
       "args": ["${workspaceFolder}/build/server.js"],
-      "env": {
-        "WOOCOMMERCE_API_URL": "https://your-store.com",
-        "WOOCOMMERCE_CONSUMER_KEY": "ck_xxx",
-        "WOOCOMMERCE_CONSUMER_SECRET": "cs_xxx"
-      }
+      "env": {}
     }
   }
 }
+```
+
+> **🔐 Security Best Practice:** No credentials in MCP config! The server loads them from your `.env` file automatically.
 ```
 
 ## 🧪 Testing
