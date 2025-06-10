@@ -4,6 +4,13 @@
 
 *Made with 🧡 in Cape Town 🇿🇦*
 
+### [1.1.1](https://github.com/jlfguthrie/intellicommerce-woo-mcp/compare/v1.0.1...v1.1.1) (2025-06-10)
+
+
+### ✅ Tests
+
+* Testing commit hooks ([4c36fa7](https://github.com/jlfguthrie/intellicommerce-woo-mcp/commit/4c36fa7ee6550e5311fe0001143a9d89c627465d))
+
 ## [1.1.0](https://github.com/jlfguthrie/intellicommerce-woo-mcp/compare/v1.0.1...v1.1.0) (2025-06-10)
 
 
