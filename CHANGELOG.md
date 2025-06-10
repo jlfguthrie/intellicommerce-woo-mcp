@@ -12,6 +12,7 @@ The **IntelliCommerce✨ Woo MCP** is a commercial-grade Model Context Protocol 
 ### 🚧 Unreleased Changes
 
 #### Recent Commits:
+- 📈 feat: Implement comprehensive changelog management system (f7855b3)
 - 📦 feat: Implement comprehensive dependency management system (f81d245)
 - 🔧 fix: Resolve commit hook issues and update Husky to v8+ syntax (c52c65f)
 - ✅ test: Verify commit hooks are working properly (f735c30)
@@ -24,10 +25,12 @@ The **IntelliCommerce✨ Woo MCP** is a commercial-grade Model Context Protocol 
 
 #### Updated Dependencies:
 
+- f7855b3 📈 feat: Implement comprehensive changelog management system
 - f81d245 📦 feat: Implement comprehensive dependency management system
 
 #### Security Updates:
 
+- f7855b3 📈 feat: Implement comprehensive changelog management system
 - f81d245 📦 feat: Implement comprehensive dependency management system
 
 
