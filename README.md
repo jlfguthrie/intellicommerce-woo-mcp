@@ -88,7 +88,7 @@ The **IntelliCommerce✨ Woo MCP** server is a commercial-grade Model Context Pr
 
 ```bash
 # Install globally from npm
-npm install -g @intellicommerce/woo-mcp
+npm install -g intellicommerce-woo-mcp
 
 # Setup in any project
 cd your-project

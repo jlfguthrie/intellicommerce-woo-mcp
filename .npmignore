@@ -45,4 +45,14 @@ node_modules/
 
 # Project status (internal)
 PROJECT_STATUS.md
+COMPLETION_REPORT.md
+DEVELOPMENT.md
 TODO
+intellicommerce-woo-mcp.code-workspace
+
+# GitHub specific (not needed for npm users)
+.github/
+
+# Development documentation (keep only essential docs)
+docs/DEVELOPMENT.md
+docs/PUBLISHING.md

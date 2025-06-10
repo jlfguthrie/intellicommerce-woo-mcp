@@ -71,7 +71,7 @@ intellicommerce-woo-mcp setup
 intellicommerce-woo-mcp --help
 
 # Cleanup
-npm uninstall -g @intellicommerce/woo-mcp
+npm uninstall -g intellicommerce-woo-mcp
 cd ~ && rm -rf /tmp/npm-test
 ```
 
@@ -141,7 +141,7 @@ Made with 🧡 in Cape Town 🇿🇦
 
 ```json
 {
-  "name": "@intellicommerce/woo-mcp",
+  "name": "intellicommerce-woo-mcp",
   "version": "1.0.0",
   "description": "✨IntelliCommerce✨ Woo MCP - Commercial-grade Model Context Protocol server",
   "bin": {
@@ -196,7 +196,7 @@ node_modules/
 ### 🎯 **Target Audiences**
 
 1. **Individual Developers**
-   - Simple global installation: `npm install -g @intellicommerce/woo-mcp`
+   - Simple global installation: `npm install -g intellicommerce-woo-mcp`
    - Easy setup: `intellicommerce-woo-mcp setup`
 
 2. **Development Teams**
@@ -233,7 +233,7 @@ node_modules/
 npm profile enable-tfa
 
 # Restrict publishing access
-npm access restricted @intellicommerce/woo-mcp
+npm access restricted intellicommerce-woo-mcp
 
 # Grant access to team members
 npm team add @intellicommerce:developers username
@@ -243,7 +243,7 @@ npm team add @intellicommerce:developers username
 
 ### 📊 **Track Usage**
 
-- **npm downloads**: https://npmjs.com/package/@intellicommerce/woo-mcp
+- **npm downloads**: https://npmjs.com/package/intellicommerce-woo-mcp
 - **GitHub stars/forks**: Repository metrics
 - **Issue tracking**: User feedback and bug reports
 - **Documentation views**: Usage patterns

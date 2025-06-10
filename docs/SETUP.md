@@ -1,4 +1,4 @@
-# 🚀 In# 🚀 IntelliCommerce✨ Woo MCP - Setup Guide
+# 🚀 IntelliCommerce✨ Woo MCP - Setup Guide
 
 ## 🎯 Installation Methods
 
@@ -8,7 +8,7 @@ Choose your preferred installation method:
 
 ```bash
 # Install globally from npm
-npm install -g @intellicommerce/woo-mcp
+npm install -g intellicommerce-woo-mcp
 
 # Verify installation
 intellicommerce-woo-mcp --help
