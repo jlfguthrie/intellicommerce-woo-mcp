@@ -1,284 +1,247 @@
-# ✨IntelliCommerce✨ Woo MCP - Development Guide
-# Made with 🧡 in Cape Town 🇿🇦
-# Powered by Xstra AI✨ | Enabled by IntelliCommerce✨
+# 🔄 Development Workflow - IntelliCommerce✨ Woo MCP
 
-## 🚀 Quick Start Guide
+*Made with 🧡 in Cape Town 🇿🇦*
 
-### Prerequisites
-- Node.js 18+ installed
-- VS Code with GitHub Copilot
-- WooCommerce store with REST API enabled
-- WooCommerce API credentials
+## 🚀 **Automated Development Pipeline**
 
-### Setup Steps
+This project uses a comprehensive automation system for testing, versioning, and releasing. Here's how everything works:
 
-1. **Install Dependencies**
-   ```bash
-   npm install
-   ```
+## 📋 **Quick Commands**
 
-2. **Configure Environment**
-   ```bash
-   cp .env.example .env
-   # Edit .env with your WooCommerce credentials
-   ```
-
-3. **Build the Project**
-   ```bash
-   npm run build
-   ```
-
-4. **Test the Server**
-   ```bash
-   npm start
-   ```
-
-## 🛠️ Development Workflow
-
-### 🌿 **Branching Strategy**
-
-This project follows a **Feature Branch Workflow** to ensure main branch stability:
-
-#### **Branch Types:**
-- **`main`** - Production-ready code, protected branch
-- **`feature/*`** - New features and enhancements
-- **`fix/*`** - Bug fixes and patches
-- **`chore/*`** - Maintenance tasks and updates
-
-#### **Development Process:**
-
-1. **Start New Feature**
-   ```bash
-   # Ensure you're on main and up to date
-   git checkout main
-   git pull origin main
-
-   # Create feature branch
-   git checkout -b feature/your-feature-name
-   ```
-
-2. **Work on Feature**
-   ```bash
-   # Make changes, commit regularly
-   git add .
-   git commit -m "✨ feat: Add feature description"
-
-   # Push to your branch
-   git push origin feature/your-feature-name
-   ```
-
-3. **Submit for Review**
-   ```bash
-   # Create Pull Request via GitHub CLI
-   gh pr create --title "✨ feat: Your feature title" --body "Description of changes"
-   ```
-
-4. **After PR Approval**
-   ```bash
-   # Merge via GitHub (Squash and Merge preferred)
-   # Clean up local branch
-   git checkout main
-   git pull origin main
-   git branch -d feature/your-feature-name
-   ```
-
-### 🔄 **Upstream Integration**
-
-This repository is a **commercial fork** of Automattic's WooCommerce MCP server:
-
-- **Origin**: `https://github.com/jlfguthrie/intellicommerce-woo-mcp` (your repo)
-- **Upstream**: `https://github.com/Automattic/ai-experiments` (original repo)
-
-#### **Contributing Back to Upstream:**
-
-1. **Create Upstream Contribution Branch**
-   ```bash
-   # Fetch latest upstream changes
-   git fetch upstream
-
-   # Create branch from upstream main
-   git checkout -b fix/upstream-contribution upstream/main
-
-   # Make your changes (remove IntelliCommerce✨ branding for upstream)
-   # Commit and push to your fork
-   git push origin fix/upstream-contribution
-
-   # Create PR to Automattic's repository
-   gh pr create --repo Automattic/ai-experiments --title "fix: Your contribution"
-   ```
-
-2. **Staying Updated with Upstream:**
-   ```bash
-   # Periodically sync with upstream (monthly or as needed)
-   git fetch upstream
-   git checkout main
-   git merge upstream/main
-   git push origin main
-   ```
-
-### 🎯 **VS Code Integration**
-
-#### **Tasks Available:**
-- **Build**: `Cmd+Shift+P` → "Tasks: Run Task" → "✨ Build IntelliCommerce✨ Woo MCP"
-- **Start Server**: `Cmd+Shift+P` → "Tasks: Run Task" → "🚀 Start IntelliCommerce✨ Woo MCP Server"
-- **Watch Mode**: `Cmd+Shift+P` → "Tasks: Run Task" → "🔄 Watch & Build IntelliCommerce✨ Woo MCP"
-- **Test MCP**: `Cmd+Shift+P` → "Tasks: Run Task" → "🔍 Test MCP Connection"
-
-#### **Git Integration:**
-- **Auto-fetch**: Enabled for tracking upstream changes
-- **Smart Commit**: Enabled for efficient workflow
-- **Branch Protection**: Main branch should be protected on GitHub
-
-### 📋 **Available NPM Scripts**
 ```bash
-npm run build      # Build TypeScript to JavaScript
-npm start          # Start the MCP server
-npm run dev        # Start with TypeScript directly
-npm run clean      # Clean build directory
-npm run lint       # Run ESLint
-npm run format     # Format code with Prettier
+# 🧪 Development & Testing
+npm run dev              # Start development server with watch
+npm run build            # Build the project
+npm run test:unit        # Run unit tests
+npm run test:integration # Run MCP integration tests
+npm run validate         # Run complete validation pipeline
+
+# 🎨 Code Quality
+npm run lint             # Check code style
+npm run lint:fix         # Fix linting issues
+npm run format           # Format code with Prettier
+npm run format:check     # Check code formatting
+
+# 🏷️ Versioning & Releases
+npm run release:patch    # Create patch release (1.0.1 → 1.0.2)
+npm run release:minor    # Create minor release (1.0.1 → 1.1.0)
+npm run release:major    # Create major release (1.0.1 → 2.0.0)
+npm run release:dry      # Dry run to see what would be released
+./scripts/release.sh     # Interactive release script
+
+# 📦 Publishing
+npm run publish:npm      # Publish to NPM
+npm run publish:auto     # Automated release + publish + push
 ```
 
-### 🔒 **Branch Protection Rules**
+## 🔧 **Pre-commit Automation**
 
-For production safety, configure these GitHub branch protection rules:
+### **Git Hooks (Husky)**
+- **Pre-commit**: Automatically runs linting, formatting, tests, and build
+- **Commit-msg**: Validates commit message format using conventional commits
 
-1. **Main Branch Protection:**
-   ```bash
-   # Via GitHub CLI
-   gh api repos/jlfguthrie/intellicommerce-woo-mcp/branches/main/protection \
-     --method PUT \
-     --field required_status_checks='{"strict":true,"contexts":[]}' \
-     --field enforce_admins=true \
-     --field required_pull_request_reviews='{"required_approving_review_count":1,"dismiss_stale_reviews":true}' \
-     --field restrictions=null
-   ```
+### **Lint-staged**
+- Automatically formats and lints only staged files
+- Runs before every commit to maintain code quality
 
-2. **Manual Setup via GitHub:**
-   - Go to: https://github.com/jlfguthrie/intellicommerce-woo-mcp/settings/branches
-   - Add rule for `main` branch:
-     - ✅ Require a pull request before merging
-     - ✅ Require approvals (1 minimum)
-     - ✅ Dismiss stale PR approvals when new commits are pushed
-     - ✅ Require status checks to pass before merging
-     - ✅ Include administrators
-- **Watch Mode**: `Cmd+Shift+P` → "Tasks: Run Task" → "🔄 Watch & Build IntelliCommerce✨ Woo MCP"
-- **Test MCP**: `Cmd+Shift+P` → "Tasks: Run Task" → "🔍 Test MCP Connection"
+## 📈 **Automated Changelog**
 
-### Available NPM Scripts
+### **Conventional Commits**
+Use these commit message formats:
+
 ```bash
-npm run build      # Build TypeScript to JavaScript
-npm start          # Start the MCP server
-npm run dev        # Start with TypeScript directly
-npm run clean      # Clean build directory
-npm run lint       # Run ESLint
-npm run format     # Format code with Prettier
-npm run test       # Run tests (when implemented)
+✨ feat: Add new WooCommerce integration feature
+🐛 fix: Resolve MCP server startup issue  
+📚 docs: Update API documentation
+🎨 style: Improve code formatting
+♻️ refactor: Simplify tool registration logic
+⚡ perf: Optimize API response handling
+✅ test: Add unit tests for customer tools
+🔧 chore: Update dependencies
 ```
 
-## 🔧 Configuration Files
+### **Automatic Changelog Generation**
+- Changelog is automatically generated from commit messages
+- Follows conventional commit standards
+- Updates `docs/CHANGELOG.md` on every release
+- Includes proper GitHub links and version comparisons
 
-### Environment Variables (.env)
-```env
-WOOCOMMERCE_API_URL=https://your-store.com
-WOOCOMMERCE_CONSUMER_KEY=ck_xxx
-WOOCOMMERCE_CONSUMER_SECRET=cs_xxx
+## 🎯 **Release Process**
+
+### **1. Automated Release (Recommended)**
+
+```bash
+# Interactive release script
+./scripts/release.sh
+
+# Follow prompts to:
+# - Select release type (patch/minor/major)
+# - Review changes
+# - Confirm release
+# - Automatically publish to NPM
 ```
 
-### VS Code MCP Configuration (.vscode/mcp.json)
-```json
-{
-  "mcpServers": {
-    "intellicommerce-woo": {
-      "command": "node",
-      "args": ["${workspaceFolder}/build/server.js"],
-      "env": {
-        "WOOCOMMERCE_API_URL": "https://your-store.com",
-        "WOOCOMMERCE_CONSUMER_KEY": "ck_xxx",
-        "WOOCOMMERCE_CONSUMER_SECRET": "cs_xxx"
-      }
-    }
-  }
-}
+### **2. Manual Release**
+
+```bash
+# 1. Ensure you're on main branch with latest changes
+git checkout main && git pull origin main
+
+# 2. Run validation pipeline
+npm run validate
+
+# 3. Create release (choose one)
+npm run release:patch    # For bug fixes
+npm run release:minor    # For new features  
+npm run release:major    # For breaking changes
+
+# 4. Review generated changelog and version
+git log --oneline -5
+
+# 5. Push changes and tags
+git push --follow-tags origin main
+
+# 6. Publish to NPM
+npm run publish:npm
 ```
 
-## 🧪 Testing
+## 🔄 **CI/CD Pipeline (GitHub Actions)**
 
-### Manual Testing
-1. Start the server: `npm start`
-2. Use MCP Inspector: `npx @modelcontextprotocol/inspector node build/server.js`
-3. Test individual tools through VS Code Copilot
+### **Automatic Testing**
+- Runs on every push to `main` and `feature/*` branches
+- Tests on Node.js 18, 20, and 22
+- Validates TypeScript, linting, formatting, and tests
+- Runs MCP integration tests
 
-### Integration Testing
-1. Configure with a test WooCommerce store
-2. Verify all CRUD operations work
-3. Test error handling with invalid data
-4. Check authentication and authorization
+### **Automatic Publishing**
+- Triggers on pushes to `main` branch
+- Creates GitHub release with generated changelog
+- Publishes to NPM automatically
+- Requires `NPM_TOKEN` secret in repository settings
 
-## 📝 Code Style
+## 🔍 **Quality Gates**
 
-### File Headers
-Always include in TypeScript files:
-```typescript
-// ✨IntelliCommerce✨ Woo MCP - [Description]
-// Made with 🧡 in Cape Town 🇿🇦
-// Powered by Xstra AI✨ | Enabled by IntelliCommerce✨
+### **Pre-commit Checks**
+✅ TypeScript compilation  
+✅ ESLint code quality  
+✅ Prettier formatting  
+✅ Unit tests  
+✅ Build verification  
+
+### **Pre-release Checks** 
+✅ All pre-commit checks  
+✅ Integration tests  
+✅ Version validation  
+✅ Changelog generation  
+
+### **Pre-publish Checks**
+✅ All pre-release checks  
+✅ Git working directory clean  
+✅ On main branch  
+✅ Latest changes pulled  
+
+## 🛠️ **Development Setup**
+
+### **First Time Setup**
+
+```bash
+# 1. Clone and install
+git clone https://github.com/jlfguthrie/intellicommerce-woo-mcp.git
+cd intellicommerce-woo-mcp
+npm install
+
+# 2. Setup environment
+cp .env.example .env
+# Edit .env with your WooCommerce credentials
+
+# 3. Test everything works
+npm run validate
 ```
 
-### Naming Conventions
-- **Files**: kebab-case (`product-variations.ts`)
-- **Classes**: PascalCase (`WooCommerceClient`)
-- **Functions**: camelCase (`listProducts`)
-- **Constants**: SCREAMING_SNAKE_CASE (`API_ENDPOINTS`)
-- **MCP Tools**: snake_case (`list_products`)
+### **Daily Development**
 
-## 🔍 Debugging
+```bash
+# 1. Create feature branch
+git checkout main && git pull origin main
+git checkout -b feature/your-feature-name
 
-### VS Code Debugging
-1. Set breakpoints in TypeScript source
-2. Press F5 or use "🚀 Debug IntelliCommerce✨ Woo MCP Server"
-3. Debug with source maps enabled
+# 2. Development with hot reload  
+npm run dev
 
-### Console Logging
-- Server startup: `✨ IntelliCommerce✨ Woo MCP Server running on stdio`
-- Errors: Prefixed with `❌`
-- Success: Prefixed with `✅`
-- Info: Prefixed with `ℹ️`
+# 3. Make changes and commit (hooks will auto-validate)
+git add .
+git commit -m "✨ feat: Your feature description"
 
-## 🚨 Common Issues
+# 4. Push and create PR
+git push -u origin feature/your-feature-name
+gh pr create --web
+```
 
-### Server Won't Start
-- Check Node.js version (18+)
-- Verify all dependencies installed
-- Check build output exists
-- Validate environment variables
+## 📊 **Testing Strategy**
 
-### WooCommerce Connection Failed
-- Verify API URL includes `https://`
-- Check API credentials are correct
-- Ensure WooCommerce REST API is enabled
-- Test with read-only permissions first
+### **Unit Tests** (`npm run test:unit`)
+- Fast, isolated tests
+- Mock external dependencies  
+- Test business logic and utilities
 
-### MCP Client Not Detecting Server
-- Check absolute paths in configuration
-- Restart VS Code/Claude Desktop after config changes
-- Verify server starts without errors
-- Check MCP client logs
+### **Integration Tests** (`npm run test:integration`)
+- Test MCP server startup and connectivity
+- Validate tool registration
+- Test with real WooCommerce API (using test credentials)
 
-## 📚 Resources
+### **End-to-End Tests** (Future)
+- Test complete workflows
+- Test with VS Code and Claude Desktop
+- Validate user experience
 
-- [Model Context Protocol Docs](https://modelcontextprotocol.io/)
-- [WooCommerce REST API](https://woocommerce.github.io/woocommerce-rest-api-docs/)
-- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
-- [VS Code MCP Extension](https://marketplace.visualstudio.com/items?itemName=modelcontextprotocol.mcp)
+## 🔒 **Security & Best Practices**
 
-## 🆘 Support
+### **Secrets Management**
+- Never commit `.env` files
+- Use GitHub Secrets for CI/CD
+- Rotate API keys regularly
 
-- **Email**: info@intellicommerce.co.za
-- **Repository**: https://github.com/jlfguthrie/intellicommerce-woo-mcp
-- **Issues**: https://github.com/jlfguthrie/intellicommerce-woo-mcp/issues
+### **Dependency Management**
+- Regular security audits with `npm audit`
+- Automated dependency updates
+- Lock file management
+
+### **Code Quality**
+- TypeScript strict mode
+- ESLint with strict rules
+- Prettier for consistent formatting
+- Pre-commit validation
+
+## 📚 **Documentation Updates**
+
+### **Automatic Updates**
+- Changelog generated from commits
+- Version numbers updated automatically
+- GitHub releases created with proper formatting
+
+### **Manual Updates**
+- README.md for major features
+- API.md for tool documentation  
+- TROUBLESHOOTING.md for common issues
+
+## 🎉 **Best Practices**
+
+### **Commit Messages**
+- Use conventional commit format
+- Be descriptive but concise
+- Include context for complex changes
+
+### **Branch Management**
+- Use feature branches for all development
+- Keep branches focused and small
+- Delete branches after merging
+
+### **Release Management**  
+- Follow semantic versioning
+- Test releases in staging environment
+- Communicate breaking changes clearly
 
 ---
 
-**Made with 🧡 in Cape Town 🇿🇦**
+**Made with 🧡 in Cape Town 🇿🇦**  
 **Powered by Xstra AI✨ | Enabled by IntelliCommerce✨**

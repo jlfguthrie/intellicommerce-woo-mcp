@@ -84,7 +84,23 @@ The **IntelliCommerce✨ Woo MCP** server is a commercial-grade Model Context Pr
 
 </details>
 
-### 1️⃣ **Installation**
+### 1️⃣ **Global Installation** ⭐ *Recommended*
+
+```bash
+# Install globally from npm
+npm install -g intellicommerce-woo-mcp
+
+# Setup in any project
+cd your-project
+intellicommerce-woo-mcp setup
+
+# Set environment variables
+export WOOCOMMERCE_API_URL="https://your-store.com"
+export WOOCOMMERCE_CONSUMER_KEY="ck_your_key"
+export WOOCOMMERCE_CONSUMER_SECRET="cs_your_secret"
+```
+
+### 2️⃣ **Local Development Installation**
 
 ```bash
 # Clone the repository
@@ -98,10 +114,39 @@ npm install
 npm run build
 ```
 
-### 2️⃣ **Configuration**
+### 3️⃣ **Configuration**
+
+<details>
+<summary><strong>🔧 Global Installation (Automatic)</strong></summary>
+
+After global installation, use the setup command:
 
 ```bash
-# Create environment file
+# In any project directory
+intellicommerce-woo-mcp setup
+```
+
+This creates `.vscode/mcp.json`:
+```json
+{
+  "mcpServers": {
+    "intellicommerce-woo": {
+      "command": "intellicommerce-woo-mcp",
+      "args": [],
+      "env": {}
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary><strong>🔧 Local Development (Manual)</strong></summary>
+
+For local development, create `.env` file:
+
+```bash
 cp .env.example .env
 ```
 
@@ -112,6 +157,8 @@ WOOCOMMERCE_API_URL=https://your-store.com
 WOOCOMMERCE_CONSUMER_KEY=ck_your_consumer_key
 WOOCOMMERCE_CONSUMER_SECRET=cs_your_consumer_secret
 ```
+
+</details>
 
 ### 3️⃣ **Client Setup**
 
@@ -125,15 +172,14 @@ Create `.vscode/mcp.json`:
   "mcpServers": {
     "intellicommerce-woo": {
       "command": "node",
-      "args": ["./build/server.js"],
-      "env": {
-        "WOOCOMMERCE_API_URL": "https://your-store.com",
-        "WOOCOMMERCE_CONSUMER_KEY": "ck_your_key",
-        "WOOCOMMERCE_CONSUMER_SECRET": "cs_your_secret"
-      }
+      "args": ["${workspaceFolder}/build/server.js"],
+      "env": {}
     }
   }
 }
+```
+
+> **🔐 Security Note:** Credentials are loaded from your `.env` file, not hardcoded in the MCP configuration.
 ```
 
 </details>
@@ -141,6 +187,13 @@ Create `.vscode/mcp.json`:
 <details>
 <summary><strong>🖥️ Claude Desktop</strong></summary>
 
+Add to `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "intellicommerce-woo": {
+      "command": "node",
 Add to `claude_desktop_config.json`:
 
 ```json
@@ -159,17 +212,43 @@ Add to `claude_desktop_config.json`:
 }
 ```
 
+> **💡 Note:** For Claude Desktop, you need to include credentials in the config file since it doesn't automatically load `.env` files.
+```
+
 </details>
 
 ### 4️⃣ **Launch**
 
+<details>
+<summary><strong>🌍 Global Installation (Production Use)</strong></summary>
+
 ```bash
-# Start the server
+# Set environment variables
+export WOOCOMMERCE_API_URL="https://your-store.com"
+export WOOCOMMERCE_CONSUMER_KEY="ck_your_key"
+export WOOCOMMERCE_CONSUMER_SECRET="cs_your_secret"
+
+# Start the server (available globally)
+intellicommerce-woo-mcp
+```
+
+</details>
+
+<details>
+<summary><strong>💻 Local Development</strong></summary>
+
+```bash
+# Start the server (local development)
 npm start
 ```
 
+</details>
+
 You'll see:
 ```
+🚀 Initializing ✨IntelliCommerce✨ Woo MCP Server...
+✅ WooCommerce client initialized successfully.
+🔧 Setting up server transport...
 ✨ IntelliCommerce✨ Woo MCP Server running on stdio
 Made with 🧡 in Cape Town 🇿🇦
 ```
@@ -228,6 +307,7 @@ Made with 🧡 in Cape Town 🇿🇦
 | **Setup** | Installation & Configuration | [📋 Setup Guide](docs/SETUP.md) |
 | **API Reference** | Complete Tool Documentation | [🛠️ API Docs](docs/API.md) |
 | **Development** | Contributing & Building | [💻 Dev Guide](docs/DEVELOPMENT.md) |
+| **Publishing** | npm Release Process | [📦 Publishing Guide](docs/PUBLISHING.md) |
 | **Troubleshooting** | Common Issues & Solutions | [🔧 Troubleshooting](docs/TROUBLESHOOTING.md) |
 | **Changelog** | Version History | [📈 Changelog](docs/CHANGELOG.md) |
 
@@ -288,22 +368,27 @@ Made with 🧡 in Cape Town 🇿🇦
 
 <table>
 <tr>
-<td align="center" width="25%">
+<td align="center" width="20%">
 <img src="https://cdn-icons-png.flaticon.com/64/2910/2910791.png" width="48" height="48" alt="Commercial Grade" /><br>
 <strong>Commercial Grade</strong><br>
 <small>Production-ready with comprehensive error handling</small>
 </td>
-<td align="center" width="25%">
+<td align="center" width="20%">
 <img src="https://cdn-icons-png.flaticon.com/64/3281/3281306.png" width="48" height="48" alt="Type Safe" /><br>
 <strong>Type Safe</strong><br>
 <small>Full TypeScript implementation with type safety</small>
 </td>
-<td align="center" width="25%">
+<td align="center" width="20%">
 <img src="https://cdn-icons-png.flaticon.com/64/2920/2920277.png" width="48" height="48" alt="Well Documented" /><br>
 <strong>Well Documented</strong><br>
 <small>Comprehensive guides and troubleshooting</small>
 </td>
-<td align="center" width="25%">
+<td align="center" width="20%">
+<img src="https://cdn-icons-png.flaticon.com/64/1126/1126012.png" width="48" height="48" alt="Global Installation" /><br>
+<strong>Global Installation</strong><br>
+<small>One-command setup across all projects</small>
+</td>
+<td align="center" width="20%">
 <img src="https://cdn-icons-png.flaticon.com/64/3159/3159310.png" width="48" height="48" alt="Cape Town Built" /><br>
 <strong>Cape Town Built</strong><br>
 <small>Local South African development with pride</small>

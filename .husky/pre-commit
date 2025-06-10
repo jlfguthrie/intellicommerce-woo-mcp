@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+# ✨IntelliCommerce✨ Woo MCP - Pre-commit Hook
+# Made with 🧡 in Cape Town 🇿🇦
+# Powered by Xstra AI✨ | Enabled by IntelliCommerce✨
+
+echo "🔍 Running pre-commit validation..."
+
+# Run lint-staged for staged files
+npx lint-staged
+
+# Run type checking
+echo "📝 Type checking..."
+npm run typecheck
+
+# Run tests
+echo "🧪 Running tests..."
+npm run test:unit
+
+# Build check
+echo "🔨 Build check..."
+npm run build
+
+echo "✅ Pre-commit validation complete!"

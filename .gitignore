@@ -30,8 +30,8 @@ lib/
 
 # Test files that might contain credentials
 test-connection.*
-*.test.js
-*.test.ts
+*connection*.test.js
+*connection*.test.ts
 testing/
 temp/
 
@@ -157,3 +157,15 @@ test-connection.*
 # Testing
 .jest/
 .test-results/
+*.mcp.json
+
+# Temporary files and handover documents
+*.new
+*PLAN*.md
+*HANDOVER*.md
+CI_CD_HANDOVER.md
+
+# Session files - not for public repository
+docs/SESSION_*.md
+docs/MCP_STATUS_*.md
+docs/internal/

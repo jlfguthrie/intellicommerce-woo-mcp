@@ -1,0 +1,250 @@
+# ✨IntelliCommerce✨ Woo MCP - Dependency Management Pipeline
+# Made with 🧡 in Cape Town 🇿🇦
+# Powered by Xstra AI✨ | Enabled by IntelliCommerce✨
+
+name: 📦 Dependency Management
+
+on:
+  # Run weekly on Mondays at 9 AM UTC (11 AM in Cape Town)
+  schedule:
+    - cron: '0 9 * * 1'
+
+  # Allow manual trigger
+  workflow_dispatch:
+    inputs:
+      update_type:
+        description: 'Type of updates to perform'
+        required: true
+        default: 'minor'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+          - interactive
+
+      create_pr:
+        description: 'Create PR for updates'
+        required: true
+        default: true
+        type: boolean
+
+jobs:
+  dependency-audit:
+    name: 🔍 Dependency Audit
+    runs-on: ubuntu-latest
+
+    outputs:
+      has-vulnerabilities: ${{ steps.audit.outputs.has-vulnerabilities }}
+      has-updates: ${{ steps.check.outputs.has-updates }}
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🔒 Security audit
+        id: audit
+        run: |
+          if npm audit --audit-level=high; then
+            echo "has-vulnerabilities=false" >> $GITHUB_OUTPUT
+          else
+            echo "has-vulnerabilities=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 🔍 Check for updates
+        id: check
+        run: |
+          npx npm-check-updates --target minor --jsonUpgraded > updates.json
+          if [ -s updates.json ] && [ "$(cat updates.json)" != "{}" ]; then
+            echo "has-updates=true" >> $GITHUB_OUTPUT
+            echo "📦 Available updates found"
+            cat updates.json
+          else
+            echo "has-updates=false" >> $GITHUB_OUTPUT
+            echo "✅ All dependencies are up to date"
+          fi
+
+      - name: 📊 Upload audit results
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-audit
+          path: |
+            updates.json
+            npm-audit.json
+        continue-on-error: true
+
+  update-dependencies:
+    name: 📈 Update Dependencies
+    runs-on: ubuntu-latest
+    needs: dependency-audit
+    if: needs.dependency-audit.outputs.has-updates == 'true' || github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: 📦 Install npm-check-updates
+        run: npm install -g npm-check-updates
+
+      - name: 🔧 Configure Git
+        run: |
+          git config user.name "IntelliCommerce✨ Dependency Bot"
+          git config user.email "dependencies@intellicommerce.co.za"
+
+      - name: 📈 Update dependencies
+        run: |
+          UPDATE_TYPE="${{ github.event.inputs.update_type || 'minor' }}"
+          echo "🔄 Performing $UPDATE_TYPE updates..."
+
+          # Make script executable
+          chmod +x scripts/dependencies-update.sh
+
+          # Run dependency update
+          ./scripts/dependencies-update.sh $UPDATE_TYPE
+
+      - name: 🧪 Run comprehensive tests
+        run: |
+          echo "🧪 Running test suite..."
+          npm run test:unit
+
+          echo "🔨 Testing build..."
+          npm run build
+
+          echo "🔒 Security check..."
+          npm run security:check
+
+          echo "📂 Structure validation..."
+          npm run structure:check
+
+      - name: 📝 Generate update summary
+        id: summary
+        run: |
+          echo "## 📦 Dependency Updates Summary" > update-summary.md
+          echo "**Made with 🧡 in Cape Town 🇿🇦**" >> update-summary.md
+          echo "" >> update-summary.md
+
+          if git diff --name-only | grep -q package.json; then
+            echo "### 🔄 Updated Packages" >> update-summary.md
+            echo "\`\`\`diff" >> update-summary.md
+            git diff package.json >> update-summary.md
+            echo "\`\`\`" >> update-summary.md
+            echo "" >> update-summary.md
+
+            # Generate dependency changelog
+            npm run changelog:deps
+          fi
+
+          echo "### ✅ Validation Results" >> update-summary.md
+          echo "- 🧪 Tests: Passed" >> update-summary.md
+          echo "- 🔨 Build: Successful" >> update-summary.md
+          echo "- 🔒 Security: Clean" >> update-summary.md
+          echo "- 📂 Structure: Valid" >> update-summary.md
+          echo "" >> update-summary.md
+          echo "**Powered by Xstra AI✨ | Enabled by IntelliCommerce✨**" >> update-summary.md
+
+          # Set output for PR creation
+          if git diff --quiet; then
+            echo "changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 🔀 Create Pull Request
+        if: steps.summary.outputs.changes == 'true' && (github.event.inputs.create_pr == 'true' || github.event_name == 'schedule')
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: |
+            📦 chore: Update dependencies (${{ github.event.inputs.update_type || 'minor' }} updates)
+
+            - Automated dependency updates via CI/CD pipeline
+            - All tests passing ✅
+            - Security audit clean 🔒
+
+            Made with 🧡 in Cape Town 🇿🇦
+          title: "📦 Dependency Updates - ${{ github.event.inputs.update_type || 'Minor' }} Version Bumps"
+          body-path: update-summary.md
+          branch: feature/dependency-updates-${{ github.run_number }}
+          delete-branch: true
+          labels: |
+            dependencies
+            automated
+            🤖 bot
+
+  security-alerts:
+    name: 🚨 Security Alert Handler
+    runs-on: ubuntu-latest
+    needs: dependency-audit
+    if: needs.dependency-audit.outputs.has-vulnerabilities == 'true'
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🔒 Detailed security audit
+        run: |
+          echo "🚨 Security vulnerabilities detected!"
+          npm audit --audit-level=high
+          npm audit fix --dry-run
+
+      - name: 🚨 Create security issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = "🚨 Security Alert: Vulnerabilities detected in dependencies";
+            const body = `
+            ## 🚨 Security Alert
+
+            **Automated security scan detected vulnerabilities in project dependencies.**
+
+            **Made with 🧡 in Cape Town 🇿🇦**
+
+            ### 📋 Action Required:
+            1. Review the security audit results
+            2. Update vulnerable packages
+            3. Test thoroughly after updates
+            4. Run manual security verification
+
+            ### 🔧 Quick Fix Commands:
+            \`\`\`bash
+            npm audit fix
+            npm test
+            \`\`\`
+
+            **Powered by Xstra AI✨ | Enabled by IntelliCommerce✨**
+            `;
+
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: title,
+              body: body,
+              labels: ['security', 'high-priority', '🚨 urgent']
+            });

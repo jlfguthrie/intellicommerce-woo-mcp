@@ -1,0 +1,114 @@
+# ✨IntelliCommerce✨ Woo MCP - NPM Ignore
+# Made with 🧡 in Cape Town 🇿🇦
+# Powered by Xstra AI✨ | Enabled by IntelliCommerce✨
+
+# SECURITY: Never publish source code or development files
+src/
+tests/
+scripts/
+
+# SECURITY: Configuration files that might contain secrets
+.env*
+*.env
+test-connection.*
+config/
+.config/
+
+# SECURITY: Development tools and configurations
+tsconfig.json
+.eslintrc.*
+eslint.config.*
+.prettierrc.*
+.prettierignore
+commitlint.config.*
+jest.config.*
+.versionrc.*
+
+# SECURITY: Documentation (keep only essential docs in package)
+docs/
+*.md
+!README.md
+!LICENSE
+!CHANGELOG.md
+
+# SECURITY: Development and testing artifacts
+.vscode/
+.github/
+.husky/
+coverage/
+.jest/
+.test-results/
+node_modules/
+.npm/
+
+# SECURITY: Git and version control
+.git/
+.gitignore
+.gitattributes
+
+# SECURITY: OS and editor files
+.DS_Store
+Thumbs.db
+.directory
+*.swp
+*.swo
+*~
+.idea/
+
+# SECURITY: Logs and temporary files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.tmp
+*.temp
+temp/
+
+# SECURITY: Package manager files
+yarn.lock
+package-lock.json
+.yarn/
+
+# SECURITY: Internal documentation and session files
+docs/internal/
+SESSION_*.md
+MCP_STATUS_*.md
+PROJECT_STATUS.md
+COMPLETION_REPORT.md
+
+# Only include essential production files:
+# - bin/ (CLI executable)
+# - build/ (compiled TypeScript)
+# - package.json (package metadata)
+# - README.md (essential documentation)
+# - LICENSE (legal requirement)
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime
+node_modules/
+
+# IDE
+*.swp
+*.swo
+
+# Temporary files
+*.tmp
+*.temp
+*.new
+*PLAN*.md
+*HANDOVER*.md
+
+# Project status (internal)
+PROJECT_STATUS.md
+COMPLETION_REPORT.md
+DEVELOPMENT.md
+TODO
+intellicommerce-woo-mcp.code-workspace
+
+# GitHub specific (not needed for npm users)
+.github/
+
+# Development documentation (keep only essential docs)
+docs/DEVELOPMENT.md
+docs/PUBLISHING.md

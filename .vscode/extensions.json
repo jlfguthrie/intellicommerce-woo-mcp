@@ -1,27 +1,25 @@
 {
+  // ✨IntelliCommerce✨ Woo MCP - Recommended Extensions
+  // Made with 🧡 in Cape Town 🇿🇦
+  // Powered by Xstra AI✨ | Enabled by IntelliCommerce✨
+
   "recommendations": [
     // Essential TypeScript & JavaScript Development
     "ms-vscode.vscode-typescript-next",
     "esbenp.prettier-vscode",
     "ms-vscode.vscode-eslint",
-    "bradlc.vscode-tailwindcss",
 
     // GitHub Copilot & AI Assistance
     "github.copilot",
     "github.copilot-chat",
+    "github.github-vscode-theme",
 
     // Git & Version Control
     "eamodio.gitlens",
     "github.vscode-pull-request-github",
 
-    // Code Quality & Formatting
-    "streetsidesoftware.code-spell-checker",
-    "ms-vscode.hexeditor",
-    "redhat.vscode-yaml",
-
     // Node.js & Package Management
     "christian-kohler.npm-intellisense",
-    "ms-vscode.vscode-node-azure-pack",
 
     // Markdown & Documentation
     "yzhang.markdown-all-in-one",
@@ -30,11 +28,7 @@
     // JSON & Configuration Files
     "ms-vscode.vscode-json",
 
-    // REST Client for API Testing
-    "humao.rest-client",
-
-    // IntelliCommerce✨ Specific Tools
-    "ms-vscode.remote-repositories",
-    "ms-vscode.remote-workspace"
+    // REST Client for API Testing (useful for WooCommerce API testing)
+    "humao.rest-client"
   ]
 }

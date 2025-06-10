@@ -1,0 +1,28 @@
+{
+  "header": "# 📈 IntelliCommerce✨ Woo MCP - Changelog\n\n*All notable changes to this project will be documented in this file.*\n\n*Made with 🧡 in Cape Town 🇿🇦*\n",
+  "types": [
+    {"type": "feat", "section": "✨ Features"},
+    {"type": "fix", "section": "🐛 Bug Fixes"},
+    {"type": "docs", "section": "📚 Documentation"},
+    {"type": "style", "section": "🎨 Styling"},
+    {"type": "refactor", "section": "♻️ Code Refactoring"},
+    {"type": "perf", "section": "⚡ Performance Improvements"},
+    {"type": "test", "section": "✅ Tests"},
+    {"type": "build", "section": "🔧 Build System"},
+    {"type": "ci", "section": "👷 Continuous Integration"},
+    {"type": "chore", "section": "🧹 Chores"},
+    {"type": "revert", "section": "⏪ Reverts"}
+  ],
+  "commitUrlFormat": "https://github.com/jlfguthrie/intellicommerce-woo-mcp/commit/{{hash}}",
+  "compareUrlFormat": "https://github.com/jlfguthrie/intellicommerce-woo-mcp/compare/{{previousTag}}...{{currentTag}}",
+  "issueUrlFormat": "https://github.com/jlfguthrie/intellicommerce-woo-mcp/issues/{{id}}",
+  "userUrlFormat": "https://github.com/{{user}}",
+  "releaseCommitMessageFormat": "🚀 chore(release): {{currentTag}}\n\nMade with 🧡 in Cape Town 🇿🇦",
+  "skip": {
+    "changelog": false,
+    "commit": false,
+    "tag": false
+  },
+  "infile": "docs/CHANGELOG.md",
+  "tagPrefix": "v"
+}

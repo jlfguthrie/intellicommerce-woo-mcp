@@ -1,0 +1,143 @@
+# ✨IntelliCommerce✨ Woo MCP - CI/CD Pipeline
+# Made with 🧡 in Cape Town 🇿🇦
+# Powered by Xstra AI✨ | Enabled by IntelliCommerce✨
+
+name: 🚀 CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, feature/* ]
+  pull_request:
+    branches: [ main ]
+  release:
+    types: [ published ]
+
+jobs:
+  dependency-check:
+    name: 📦 Dependency Analysis
+    runs-on: ubuntu-latest
+
+    outputs:
+      security-clean: ${{ steps.audit.outputs.security-clean }}
+      dependencies-current: ${{ steps.check.outputs.dependencies-current }}
+
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+
+    - name: 🟢 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+
+    - name: 📦 Install dependencies
+      run: npm ci
+
+    - name: 🔒 Security audit
+      id: audit
+      run: |
+        if npm audit --audit-level=moderate; then
+          echo "security-clean=true" >> $GITHUB_OUTPUT
+          echo "✅ No security vulnerabilities found"
+        else
+          echo "security-clean=false" >> $GITHUB_OUTPUT
+          echo "⚠️ Security vulnerabilities detected"
+        fi
+
+    - name: 📊 Dependency freshness check
+      id: check
+      run: |
+        npm install -g npm-check-updates
+        if ncu --target minor --errorLevel 0; then
+          echo "dependencies-current=true" >> $GITHUB_OUTPUT
+          echo "✅ Dependencies are reasonably current"
+        else
+          echo "dependencies-current=false" >> $GITHUB_OUTPUT
+          echo "📈 Updates available for dependencies"
+        fi
+
+  test:
+    name: 🧪 Test & Lint
+    runs-on: ubuntu-latest
+    needs: dependency-check
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 21.x]
+
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+
+    - name: 🟢 Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: 📦 Install dependencies
+      run: npm ci
+
+    - name: 🔍 Security Check
+      run: npm run security:check
+
+    - name: 📂 Structure Check
+      run: npm run structure:check
+
+    - name: 🏗️ Type check
+      run: npm run typecheck
+
+    - name: 📦 Build project
+      run: npm run build
+
+    - name: 🧪 Test MCP server
+      run: timeout 10s npm start || exit 0
+
+  release:
+    name: 🚀 Release
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: 🟢 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+        registry-url: 'https://registry.npmjs.org'
+
+    - name: 📦 Install dependencies
+      run: npm ci
+
+    - name: 🔧 Configure Git
+      run: |
+        git config user.name "IntelliCommerce✨ Bot"
+        git config user.email "info@intellicommerce.co.za"
+
+    - name: 🚀 Release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      run: |
+        # Generate enhanced changelog
+        npm run changelog:generate
+
+        # Create release with standard-version
+        npm run release
+
+        # Generate final enhanced changelog with release info
+        npm run changelog:generate
+
+        # Update the release commit with enhanced changelog
+        git add CHANGELOG.md
+        git commit --amend --no-edit
+
+        echo "🎉 Enhanced release completed!"
