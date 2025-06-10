@@ -39,9 +39,12 @@
 
 ## 🎯 Overview
 
-The **IntelliCommerce✨ Woo MCP** server is a commercial-grade Model Context Protocol (MCP) implementation that bridges WooCommerce stores with AI assistants. Talk to your store in natural language through VS Code Copilot, Claude Desktop, or any MCP-compatible client.
+The **IntelliCommerce✨ Woo MCP** server is a commercial-grade Model Context Protocol (MCP)
+implementation that bridges WooCommerce stores with AI assistants. Talk to your store in natural
+language through VS Code Copilot, Claude Desktop, or any MCP-compatible client.
 
-> **🚀 Professional fork** of Automattic's WooCommerce MCP server, enhanced with commercial features, comprehensive documentation, and production-ready configuration.
+> **🚀 Professional fork** of Automattic's WooCommerce MCP server, enhanced with commercial
+> features, comprehensive documentation, and production-ready configuration.
 
 ## ✨ Features
 
@@ -50,6 +53,7 @@ The **IntelliCommerce✨ Woo MCP** server is a commercial-grade Model Context Pr
 <td width="50%">
 
 ### 🛒 **Complete Store Management**
+
 - **Products & Variations** - Full catalog control
 - **Orders & Fulfillment** - Order lifecycle management
 - **Customer Data** - Comprehensive customer insights
@@ -61,6 +65,7 @@ The **IntelliCommerce✨ Woo MCP** server is a commercial-grade Model Context Pr
 <td width="50%">
 
 ### 🤖 **AI Integration**
+
 - **Natural Language** - Talk to your store conversationally
 - **Multi-Client Support** - VS Code, Claude Desktop, and more
 - **Real-time Data** - Live WooCommerce API integration
@@ -84,7 +89,7 @@ The **IntelliCommerce✨ Woo MCP** server is a commercial-grade Model Context Pr
 
 </details>
 
-### 1️⃣ **Global Installation** ⭐ *Recommended*
+### 1️⃣ **Global Installation** ⭐ _Recommended_
 
 ```bash
 # Install globally from npm
@@ -127,6 +132,7 @@ intellicommerce-woo-mcp setup
 ```
 
 This creates `.vscode/mcp.json`:
+
 ```json
 {
   "mcpServers": {
@@ -179,21 +185,16 @@ Create `.vscode/mcp.json`:
 }
 ```
 
-> **🔐 Security Note:** Credentials are loaded from your `.env` file, not hardcoded in the MCP configuration.
-```
+> **🔐 Security Note:** Credentials are loaded from your `.env` file, not hardcoded in the MCP
+> configuration.
+
+````
 
 </details>
 
 <details>
 <summary><strong>🖥️ Claude Desktop</strong></summary>
 
-Add to `claude_desktop_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "intellicommerce-woo": {
-      "command": "node",
 Add to `claude_desktop_config.json`:
 
 ```json
@@ -210,10 +211,12 @@ Add to `claude_desktop_config.json`:
     }
   }
 }
-```
+````
 
-> **💡 Note:** For Claude Desktop, you need to include credentials in the config file since it doesn't automatically load `.env` files.
-```
+> **💡 Note:** For Claude Desktop, you need to include credentials in the config file since it
+> doesn't automatically load `.env` files.
+
+````
 
 </details>
 
@@ -230,7 +233,7 @@ export WOOCOMMERCE_CONSUMER_SECRET="cs_your_secret"
 
 # Start the server (available globally)
 intellicommerce-woo-mcp
-```
+````
 
 </details>
 
@@ -245,6 +248,7 @@ npm start
 </details>
 
 You'll see:
+
 ```
 🚀 Initializing ✨IntelliCommerce✨ Woo MCP Server...
 ✅ WooCommerce client initialized successfully.
@@ -260,6 +264,7 @@ Made with 🧡 in Cape Town 🇿🇦
 <td width="50%">
 
 **📦 Product Management**
+
 ```
 "List all products with 'shirt' in the name"
 "What's the price of product ID 123?"
@@ -268,6 +273,7 @@ Made with 🧡 in Cape Town 🇿🇦
 ```
 
 **📋 Order Operations**
+
 ```
 "Show me orders from this week"
 "Get details for order #1001"
@@ -279,6 +285,7 @@ Made with 🧡 in Cape Town 🇿🇦
 <td width="50%">
 
 **👥 Customer Insights**
+
 ```
 "Show customer details for ID 789"
 "List customers from Cape Town"
@@ -287,6 +294,7 @@ Made with 🧡 in Cape Town 🇿🇦
 ```
 
 **🎫 Promotions**
+
 ```
 "List all active coupons"
 "Create a 15% discount code"
@@ -302,14 +310,14 @@ Made with 🧡 in Cape Town 🇿🇦
 
 <div align="center">
 
-| 📖 **Guide** | 🎯 **Purpose** | 🔗 **Link** |
-|-------------|----------------|-------------|
-| **Setup** | Installation & Configuration | [📋 Setup Guide](docs/SETUP.md) |
-| **API Reference** | Complete Tool Documentation | [🛠️ API Docs](docs/API.md) |
-| **Development** | Contributing & Building | [💻 Dev Guide](docs/DEVELOPMENT.md) |
-| **Publishing** | npm Release Process | [📦 Publishing Guide](docs/PUBLISHING.md) |
-| **Troubleshooting** | Common Issues & Solutions | [🔧 Troubleshooting](docs/TROUBLESHOOTING.md) |
-| **Changelog** | Version History | [📈 Changelog](docs/CHANGELOG.md) |
+| 📖 **Guide**        | 🎯 **Purpose**               | 🔗 **Link**                                   |
+| ------------------- | ---------------------------- | --------------------------------------------- |
+| **Setup**           | Installation & Configuration | [📋 Setup Guide](docs/SETUP.md)               |
+| **API Reference**   | Complete Tool Documentation  | [🛠️ API Docs](docs/API.md)                    |
+| **Development**     | Contributing & Building      | [💻 Dev Guide](docs/DEVELOPMENT.md)           |
+| **Publishing**      | npm Release Process          | [📦 Publishing Guide](docs/PUBLISHING.md)     |
+| **Troubleshooting** | Common Issues & Solutions    | [🔧 Troubleshooting](docs/TROUBLESHOOTING.md) |
+| **Changelog**       | Version History              | [📈 Changelog](docs/CHANGELOG.md)             |
 
 </div>
 
@@ -396,6 +404,205 @@ Made with 🧡 in Cape Town 🇿🇦
 </tr>
 </table>
 
+## 🧪 Testing & Quality Assurance
+
+**IntelliCommerce✨ Woo MCP** includes a comprehensive testing framework with 35+ test cases across
+5 test suites to ensure reliability and security.
+
+### 🧪 Test Suites
+
+<details>
+<summary><strong>🔧 Unit Tests</strong></summary>
+
+```bash
+# Run unit tests
+npm run test:unit
+
+# Test server functionality, tool validation, and core logic
+```
+
+</details>
+
+<details>
+<summary><strong>🔗 Integration Tests</strong></summary>
+
+```bash
+# Run integration tests
+npm run test:integration
+
+# Test MCP server startup, environment configuration, file system integration, and dependency validation
+```
+
+</details>
+
+<details>
+<summary><strong>📋 MCP Protocol Tests</strong></summary>
+
+```bash
+# Run MCP protocol compliance tests
+npm run test:mcp
+
+# Validate JSON-RPC 2.0 format, tool schemas, performance, and security compliance
+```
+
+</details>
+
+<details>
+<summary><strong>🚀 End-to-End Tests</strong></summary>
+
+```bash
+# Run E2E workflow tests
+npm run test:e2e
+
+# Test complete workflows: product lifecycle, order processing, customer management, coupon campaigns
+```
+
+</details>
+
+<details>
+<summary><strong>🔒 Security Tests</strong></summary>
+
+```bash
+# Run security validation tests
+npm run test:security
+
+# Test credential handling, input validation, data sanitization, error handling, and authentication
+```
+
+</details>
+
+### 🏃‍♂️ Running Tests
+
+```bash
+# Run all test suites (35+ tests)
+npm test
+
+# Run specific test suite
+npm run test:unit
+npm run test:integration
+npm run test:mcp
+npm run test:e2e
+npm run test:security
+
+# Run with coverage
+npm run test:coverage
+
+# Watch mode for development
+npm run test:watch
+
+# CI mode (no watch, coverage)
+npm run test:ci
+```
+
+### 📊 Test Coverage
+
+The testing framework covers:
+
+- ✅ **Unit Testing**: Core functionality and business logic
+- ✅ **Integration Testing**: MCP server and environment setup
+- ✅ **Protocol Testing**: MCP JSON-RPC 2.0 compliance
+- ✅ **E2E Testing**: Complete workflow validation
+- ✅ **Security Testing**: Input validation and credential safety
+- ✅ **Performance Testing**: Response time and load handling
+
+## 🚀 CI/CD & Development Workflow
+
+### 📦 Dependency Management
+
+<details>
+<summary><strong>🔍 Dependency Operations</strong></summary>
+
+```bash
+# Check dependency status
+npm run deps:check
+
+# Security audit
+npm run deps:audit
+
+# Update patch versions
+npm run deps:update:patch
+
+# Update minor versions
+npm run deps:update:minor
+
+# Interactive updates
+npm run deps:update:interactive
+
+# Complete refresh (audit + update + validate)
+npm run deps:fresh
+```
+
+</details>
+
+### 📈 Release Management
+
+<details>
+<summary><strong>🔖 Release Process</strong></summary>
+
+```bash
+# Enhanced release with full validation
+npm run release:enhanced:patch   # Patch version (1.1.0 → 1.1.1)
+npm run release:enhanced:minor   # Minor version (1.1.0 → 1.2.0)
+npm run release:enhanced:major   # Major version (1.1.0 → 2.0.0)
+
+# Standard releases
+npm run release:patch
+npm run release:minor
+npm run release:major
+
+# Check release readiness
+npm run release:check
+```
+
+</details>
+
+### 📈 Changelog Management
+
+```bash
+# Generate comprehensive changelog
+npm run changelog:generate
+
+# Generate dependency-focused changelog
+npm run changelog:deps
+
+# Update changelog with latest changes
+npm run changelog:update
+```
+
+### 🔄 Git Workflow
+
+Using **Feature Branch Workflow** with VS Code tasks:
+
+```bash
+# Create feature branch
+# VS Code: Ctrl+Shift+P → "Tasks: Run Task" → "🌿 Create Feature Branch"
+
+# Push feature branch
+# VS Code: Ctrl+Shift+P → "Tasks: Run Task" → "📤 Push Feature Branch"
+
+# Create pull request
+# VS Code: Ctrl+Shift+P → "Tasks: Run Task" → "🔀 Create Pull Request"
+
+# Cleanup after merge
+# VS Code: Ctrl+Shift+P → "Tasks: Run Task" → "🧹 Cleanup Feature Branch"
+```
+
+### 🔐 Security & Quality
+
+```bash
+# Security validation
+npm run security:check
+
+# Type checking
+npm run typecheck
+
+# Code formatting
+npm run format
+
+# Full validation pipeline
+npm run validate
+```
+
 ## 🤝 Contributing
 
 We welcome contributions! Here's how to get started:
@@ -447,7 +654,9 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ### 🙏 Attribution
 
-This project is a commercial fork and enhancement of the WooCommerce MCP server originally created by **Automattic Inc.** as part of their [ai-experiments repository](https://github.com/Automattic/ai-experiments).
+This project is a commercial fork and enhancement of the WooCommerce MCP server originally created
+by **Automattic Inc.** as part of their
+[ai-experiments repository](https://github.com/Automattic/ai-experiments).
 
 We gratefully acknowledge the original authors and contributors.
 
@@ -457,7 +666,9 @@ We gratefully acknowledge the original authors and contributors.
 
 ### 🏷️ About IntelliCommerce✨
 
-**IntelliCommerce✨** is a Cape Town-based technology company specializing in AI-powered e-commerce solutions. We create innovative tools and integrations that bridge the gap between artificial intelligence and online commerce platforms.
+**IntelliCommerce✨** is a Cape Town-based technology company specializing in AI-powered e-commerce
+solutions. We create innovative tools and integrations that bridge the gap between artificial
+intelligence and online commerce platforms.
 
 <p>
 <a href="https://intellicommerce.co.za">🌐 Website</a> •
@@ -471,9 +682,6 @@ We gratefully acknowledge the original authors and contributors.
 </p>
 
 </div>
-
-
-
 
 ## 🛠️ Development
 
@@ -550,10 +758,12 @@ DEFAULT_PAGE_SIZE=20
 **Common Issues:**
 
 1. **❌ "Missing required WooCommerce configuration"**
+
    - Check your `.env` file exists and has correct values
    - Ensure no extra spaces or quotes in environment variables
 
 2. **❌ "Invalid signature" or 401 Unauthorized**
+
    - Regenerate API keys in WooCommerce admin
    - Verify API key permissions (Read/Write)
    - Check store URL includes `https://`
@@ -570,36 +780,44 @@ For more troubleshooting, see our [Troubleshooting Guide](docs/TROUBLESHOOTING.m
 
 <div align="center">
 
-| 📖 **Guide** | 🎯 **Purpose** | 🔗 **Link** |
-|-------------|----------------|-------------|
-| **Setup** | Installation & Configuration | [📋 Setup Guide](docs/SETUP.md) |
-| **API Reference** | Complete Tool Documentation | [🛠️ API Docs](docs/API.md) |
-| **Development** | Contributing & Building | [💻 Dev Guide](docs/DEVELOPMENT.md) |
-| **Troubleshooting** | Common Issues & Solutions | [🔧 Troubleshooting](docs/TROUBLESHOOTING.md) |
-| **Changelog** | Version History | [📈 Changelog](docs/CHANGELOG.md) |
+| 📖 **Guide**        | 🎯 **Purpose**               | 🔗 **Link**                                   |
+| ------------------- | ---------------------------- | --------------------------------------------- |
+| **Setup**           | Installation & Configuration | [📋 Setup Guide](docs/SETUP.md)               |
+| **API Reference**   | Complete Tool Documentation  | [🛠️ API Docs](docs/API.md)                    |
+| **Development**     | Contributing & Building      | [💻 Dev Guide](docs/DEVELOPMENT.md)           |
+| **Troubleshooting** | Common Issues & Solutions    | [🔧 Troubleshooting](docs/TROUBLESHOOTING.md) |
+| **Changelog**       | Version History              | [📈 Changelog](docs/CHANGELOG.md)             |
 
 </div>
 
 ## 🔐 Security
 
-- **Never commit your API keys or secrets to version control.** Use environment variables (the `.env` file) to store them securely.
-- **Limit API key permissions:** Only grant the necessary permissions (read-only, if possible) to the WooCommerce API keys you use with the **IntelliCommerce✨ Woo MCP** server.
-- **Validate Inputs:** Thoroughly validate all inputs received from the client (especially tool arguments) to prevent injection attacks or unintended behavior.
-- **Consider HTTPS:** Use HTTPS for communication between the client and server, _especially_ if you're not using the stdio transport. The quickstart enables `queryStringAuth` and disables certificate checking for local development only. For production, use proper HTTPS certificates.
-- **Rate Limiting:** Implement rate limiting to prevent abuse of your server and the WooCommerce API.
+- **Never commit your API keys or secrets to version control.** Use environment variables (the
+  `.env` file) to store them securely.
+- **Limit API key permissions:** Only grant the necessary permissions (read-only, if possible) to
+  the WooCommerce API keys you use with the **IntelliCommerce✨ Woo MCP** server.
+- **Validate Inputs:** Thoroughly validate all inputs received from the client (especially tool
+  arguments) to prevent injection attacks or unintended behavior.
+- **Consider HTTPS:** Use HTTPS for communication between the client and server, _especially_ if
+  you're not using the stdio transport. The quickstart enables `queryStringAuth` and disables
+  certificate checking for local development only. For production, use proper HTTPS certificates.
+- **Rate Limiting:** Implement rate limiting to prevent abuse of your server and the WooCommerce
+  API.
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please submit a pull request with your changes. Ensure your code follows the existing style and includes tests where appropriate.
+Contributions are welcome! Please submit a pull request with your changes. Ensure your code follows
+the existing style and includes tests where appropriate.
 
-**Made with 🧡 in Cape Town 🇿🇦**
-**Powered by Xstra AI✨ | Enabled by IntelliCommerce✨**
+**Made with 🧡 in Cape Town 🇿🇦** **Powered by Xstra AI✨ | Enabled by IntelliCommerce✨**
 
 ---
 
 ### 🏷️ About IntelliCommerce✨
 
-**IntelliCommerce✨** is a Cape Town-based technology company specializing in AI-powered e-commerce solutions. We create innovative tools and integrations that bridge the gap between artificial intelligence and online commerce platforms.
+**IntelliCommerce✨** is a Cape Town-based technology company specializing in AI-powered e-commerce
+solutions. We create innovative tools and integrations that bridge the gap between artificial
+intelligence and online commerce platforms.
 
 - **Website**: https://intellicommerce.co.za
 - **Email**: info@intellicommerce.co.za
