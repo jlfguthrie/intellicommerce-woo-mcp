@@ -4,6 +4,8 @@
 
 *Made with 🧡 in Cape Town 🇿🇦*
 
+### [1.1.2](https://github.com/jlfguthrie/intellicommerce-woo-mcp/compare/v1.1.1...v1.1.2) (2025-06-10)
+
 ### [1.1.1](https://github.com/jlfguthrie/intellicommerce-woo-mcp/compare/v1.0.1...v1.1.1) (2025-06-10)
 
 
