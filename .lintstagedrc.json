@@ -1,0 +1,5 @@
+{
+  "*.{json,md}": [
+    "prettier --write --ignore-unknown"
+  ]
+}

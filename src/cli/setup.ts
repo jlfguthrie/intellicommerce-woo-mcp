@@ -65,7 +65,7 @@ async function setupVSCodeConfig(projectPath: string) {
   // Create .vscode directory if it doesn't exist
   try {
     await fs.mkdir(vscodeDir, { recursive: true });
-  } catch (error) {
+  } catch {
     // Directory might already exist
   }
 
