@@ -147,6 +147,9 @@ jobs:
             git diff package.json >> update-summary.md
             echo "\`\`\`" >> update-summary.md
             echo "" >> update-summary.md
+
+            # Generate dependency changelog
+            npm run changelog:deps
           fi
 
           echo "### ✅ Validation Results" >> update-summary.md

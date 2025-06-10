@@ -115,11 +115,12 @@ update_packages() {
             echo -e "${GREEN}✅ Security audit clean${NC}"
         else
             echo -e "${YELLOW}⚠️  New security issues detected${NC}"
-        fi
-
-        echo -e "${GREEN}✅ Package updates completed successfully!${NC}"
+        fi        echo -e "${GREEN}✅ Package updates completed successfully!${NC}"
         echo -e "${BLUE}📋 Summary of changes:${NC}"
         git diff --no-color package.json | grep -E "^\+.*\".*\":" | sed 's/^+/  /' || echo "  No dependency changes detected"
+
+        echo -e "${BLUE}📝 Updating changelog with dependency changes...${NC}"
+        npm run changelog:deps
 
     else
         echo -e "${GREEN}✅ All packages are already up to date!${NC}"

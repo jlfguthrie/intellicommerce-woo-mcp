@@ -126,4 +126,18 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      run: npx release-it --ci
+      run: |
+        # Generate enhanced changelog
+        npm run changelog:generate
+
+        # Create release with standard-version
+        npm run release
+
+        # Generate final enhanced changelog with release info
+        npm run changelog:generate
+
+        # Update the release commit with enhanced changelog
+        git add CHANGELOG.md
+        git commit --amend --no-edit
+
+        echo "🎉 Enhanced release completed!"

@@ -250,6 +250,58 @@
         "focus": true,
         "panel": "shared"
       }
+    },
+    {
+      "label": "📈 Generate Changelog",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "changelog:generate"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "📦 Generate Dependency Changelog",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "changelog:deps"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "🔖 Release Patch Version",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "release:patch"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "🔖 Release Minor Version",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "release:minor"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
     }
   ]
 }
