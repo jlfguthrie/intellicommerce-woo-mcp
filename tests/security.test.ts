@@ -84,7 +84,14 @@ describe('IntelliCommerce✨ Security Tests', () => {
       ];
 
       maliciousInputs.forEach(input => {
-        expect(input).toMatch(/[<>&'"${}]/); // Contains potentially dangerous characters
+        // Each input should contain potentially dangerous patterns
+        const isDangerous =
+          input.includes('<') ||
+          input.includes("'") ||
+          input.includes('${') ||
+          input.includes('../') ||
+          input.includes('javascript:');
+        expect(isDangerous).toBe(true);
       });
     });
   });

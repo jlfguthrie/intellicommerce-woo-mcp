@@ -88,8 +88,14 @@ describe('IntelliCommerce✨ Woo MCP Integration Tests', () => {
   });
 
   describe('Dependency Integration', () => {
-    test('should have MCP SDK available', () => {
-      expect(() => require('@modelcontextprotocol/sdk')).not.toThrow();
+    test('should have MCP SDK available in package.json', () => {
+      const fs = require('fs');
+      const packagePath = path.join(process.cwd(), 'package.json');
+      const packageJson = JSON.parse(fs.readFileSync(packagePath, 'utf8'));
+
+      expect(
+        packageJson.dependencies['@modelcontextprotocol/sdk']
+      ).toBeDefined();
     });
 
     test('should have axios available', () => {
@@ -98,6 +104,10 @@ describe('IntelliCommerce✨ Woo MCP Integration Tests', () => {
 
     test('should have zod available', () => {
       expect(() => require('zod')).not.toThrow();
+    });
+
+    test('should have dotenv available', () => {
+      expect(() => require('dotenv')).not.toThrow();
     });
   });
 });

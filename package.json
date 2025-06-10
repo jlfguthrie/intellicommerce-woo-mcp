@@ -6,7 +6,7 @@
   "main": "./build/server.js",
   "exports": "./build/server.js",
   "bin": {
-    "intellicommerce-woo-mcp": "./bin/intellicommerce-woo-mcp"
+    "intellicommerce-woo-mcp": "bin/intellicommerce-woo-mcp"
   },
   "preferGlobal": true,
   "engines": {
