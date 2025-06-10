@@ -1,0 +1,42 @@
+{
+  // ✨IntelliCommerce✨ Woo MCP - Workspace Configuration
+  // Made with 🧡 in Cape Town 🇿🇦
+  // Powered by Xstra AI✨ | Enabled by IntelliCommerce✨
+
+  "folders": [
+    {
+      "name": "✨IntelliCommerce✨ Woo MCP",
+      "path": "."
+    }
+  ],
+  "settings": {
+    // Inherit all settings from .vscode/settings.json
+    "workbench.name": "✨IntelliCommerce✨ Woo MCP Development",
+    "window.title": "✨IntelliCommerce✨ Woo MCP - ${activeEditorShort}${separator}${rootName}",
+
+    // IntelliCommerce✨ specific settings
+    "intellicommerce.branding.enabled": true,
+    "intellicommerce.location": "Cape Town 🇿🇦",
+    "intellicommerce.company": "✨IntelliCommerce✨",
+    "intellicommerce.developer": "John Guthrie",
+    "intellicommerce.email": "info@intellicommerce.co.za",
+    "intellicommerce.website": "https://intellicommerce.co.za",
+    "intellicommerce.poweredBy": "Xstra AI✨",
+    "intellicommerce.enabledBy": "IntelliCommerce✨",
+
+    // Project specific settings
+    "intellicommerce.project.name": "IntelliCommerce✨ Woo MCP",
+    "intellicommerce.project.type": "MCP Server",
+    "intellicommerce.project.repository": "https://github.com/jlfguthrie/intellicommerce-woo-mcp",
+    "intellicommerce.project.version": "1.0.0"
+  },
+  "extensions": {
+    "recommendations": [
+      "github.copilot",
+      "github.copilot-chat",
+      "ms-vscode.vscode-typescript-next",
+      "esbenp.prettier-vscode",
+      "ms-vscode.vscode-eslint"
+    ]
+  }
+}

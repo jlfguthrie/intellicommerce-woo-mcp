@@ -1,0 +1,58 @@
+{
+  "name": "intellicommerce-woo-mcp",
+  "version": "1.0.0",
+  "description": "✨IntelliCommerce✨ Woo MCP - A commercial-grade Model Context Protocol server for intelligent WooCommerce interactions. Made with 🧡 in Cape Town 🇿🇦",
+  "type": "module",
+  "main": "./build/server.js",
+  "exports": "./build/server.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "start": "node ./build/server.js",
+    "dev": "tsx watch src/server.ts",
+    "clean": "rimraf build",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "format": "prettier --write \"src/**/*.{ts,js,json,md}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,js,json,md}\"",
+    "test": "echo \"Tests coming soon! Made with 🧡 in Cape Town 🇿🇦\" && exit 0",
+    "typecheck": "tsc --noEmit",
+    "mcp:inspect": "npx @modelcontextprotocol/inspector node build/server.js",
+    "prestart": "npm run build",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "intellicommerce",
+    "woocommerce",
+    "mcp",
+    "server",
+    "claude",
+    "ai",
+    "copilot",
+    "vscode",
+    "ecommerce",
+    "cape-town",
+    "south-africa"
+  ],
+  "author": {
+    "name": "John Guthrie",
+    "email": "info@intellicommerce.co.za",
+    "url": "https://intellicommerce.co.za"
+  },
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.4.1",
+    "axios": "^1.6.7",
+    "dotenv": "^16.4.5",
+    "zod": "^3.23.8",
+    "zod-to-json-schema": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "rimraf": "^5.0.5",
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3"
+  }
+}

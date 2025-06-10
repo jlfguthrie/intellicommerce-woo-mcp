@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "intellicommerce-woo": {
+      "command": "node",
+      "args": ["${workspaceFolder}/build/server.js"],
+      "env": {
+        "WOOCOMMERCE_API_URL": "https://your-woocommerce-store.com",
+        "WOOCOMMERCE_CONSUMER_KEY": "ck_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "WOOCOMMERCE_CONSUMER_SECRET": "cs_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      }
+    }
+  }
+}

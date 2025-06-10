@@ -1,0 +1,112 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "✨ Build IntelliCommerce✨ Woo MCP",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "build"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": ["$tsc"]
+    },
+    {
+      "label": "🚀 Start IntelliCommerce✨ Woo MCP Server",
+      "type": "shell",
+      "command": "npm",
+      "args": ["start"],
+      "group": "test",
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "severity": 4,
+          "message": 5
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^.*IntelliCommerce.*Woo MCP Server.*starting.*$",
+          "endsPattern": "^.*IntelliCommerce.*Woo MCP Server.*running.*stdio.*$"
+        }
+      }
+    },
+    {
+      "label": "🔄 Watch & Build IntelliCommerce✨ Woo MCP",
+      "type": "shell",
+      "command": "npx",
+      "args": ["tsc", "--watch"],
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "problemMatcher": ["$tsc-watch"]
+    },
+    {
+      "label": "🧹 Clean Build Directory",
+      "type": "shell",
+      "command": "rm",
+      "args": ["-rf", "build"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "📦 Install Dependencies",
+      "type": "shell",
+      "command": "npm",
+      "args": ["install"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "🔍 Test MCP Connection",
+      "type": "shell",
+      "command": "npx",
+      "args": ["@modelcontextprotocol/inspector", "node", "${workspaceFolder}/build/server.js"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      },
+      "dependsOn": "✨ Build IntelliCommerce✨ Woo MCP"
+    }
+  ]
+}

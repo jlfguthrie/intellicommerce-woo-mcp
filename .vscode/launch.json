@@ -1,0 +1,46 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "🚀 Debug IntelliCommerce✨ Woo MCP Server",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/server.js",
+      "outFiles": ["${workspaceFolder}/build/**/*.js"],
+      "sourceMaps": true,
+      "console": "integratedTerminal",
+      "env": {
+        "NODE_ENV": "development",
+        "WOOCOMMERCE_API_URL": "https://your-woocommerce-store.com",
+        "WOOCOMMERCE_CONSUMER_KEY": "ck_development_key",
+        "WOOCOMMERCE_CONSUMER_SECRET": "cs_development_secret"
+      },
+      "preLaunchTask": "✨ Build IntelliCommerce✨ Woo MCP",
+      "restart": true,
+      "protocol": "inspector"
+    },
+    {
+      "name": "🔍 Debug TypeScript Source",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/server.ts",
+      "outFiles": ["${workspaceFolder}/build/**/*.js"],
+      "runtimeArgs": ["-r", "ts-node/register"],
+      "sourceMaps": true,
+      "console": "integratedTerminal",
+      "env": {
+        "NODE_ENV": "development",
+        "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json"
+      }
+    },
+    {
+      "name": "🧪 Test MCP Tools",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/@modelcontextprotocol/inspector/dist/index.js",
+      "args": ["node", "${workspaceFolder}/build/server.js"],
+      "console": "integratedTerminal",
+      "preLaunchTask": "✨ Build IntelliCommerce✨ Woo MCP"
+    }
+  ]
+}
