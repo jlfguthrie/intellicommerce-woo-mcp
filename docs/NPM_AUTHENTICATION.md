@@ -99,15 +99,24 @@ npm owner ls intellicommerce-woo-mcp
 npm owner add jlfguthrie intellicommerce-woo-mcp
 ```
 
-### Issue: "2FA Required"
+### Issue: "2FA Required" / "One-time password required"
+
+This error occurs when using a regular "Publish" token instead of an "Automation" token:
 
 ```bash
-# Publish with OTP
-npm publish --otp=123456
-
-# Or disable 2FA for automation tokens
-# (Go to npmjs.com account settings)
+npm error code EOTP
+npm error This operation requires a one-time password from your authenticator.
 ```
+
+**Solution**: Create an **Automation Token** instead:
+
+1. Go to [npmjs.com tokens page](https://www.npmjs.com/settings/tokens)
+2. Click "Generate New Token"
+3. **IMPORTANT**: Select **"Automation"** type (not "Publish")
+4. Copy the new token
+5. Update your `.env` file and GitHub secrets with the new token
+
+**Why**: Automation tokens bypass 2FA requirements and are designed for CI/CD.
 
 ## 📝 Scripts Reference
 

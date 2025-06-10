@@ -35,8 +35,8 @@ if grep -r "BEGIN.*PRIVATE.*KEY" src/ --include="*.ts" --include="*.js" 2>/dev/n
     secret_patterns_found=true
 fi
 
-# Check for hardcoded passwords (but exclude legitimate code patterns)
-if grep -r -E "(password[\"'\s]*[:=][\"'\s]*[\"'][^\"']{8,}[\"'])" src/ --include="*.ts" --include="*.js" | grep -v "example\|template\|placeholder\|your_\|test_\|demo_\|describe\|z\.string\|consumerSecret\|variable" 2>/dev/null; then
+# Check for hardcoded passwords (look for actual string literals, not schema definitions)
+if grep -r -E "(password[\"'\s]*[:=][\"'\s]*[\"'][a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\\|,.<>\?]{8,}[\"'])" src/ --include="*.ts" --include="*.js" | grep -v "example\|template\|placeholder\|your_\|test_\|demo_\|describe\|z\.string\|Schema\|schema\|consumerSecret\|\.optional\(\)" 2>/dev/null; then
     echo "❌ Potential hardcoded passwords found!"
     secret_patterns_found=true
 fi
