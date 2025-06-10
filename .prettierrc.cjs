@@ -1,6 +1,6 @@
-# ✨IntelliCommerce✨ Woo MCP - Prettier Configuration
-# Made with 🧡 in Cape Town 🇿🇦
-# Powered by Xstra AI✨ | Enabled by IntelliCommerce✨
+// ✨IntelliCommerce✨ Woo MCP - Prettier Configuration
+// Made with 🧡 in Cape Town 🇿🇦
+// Powered by Xstra AI✨ | Enabled by IntelliCommerce✨
 
 module.exports = {
   // IntelliCommerce✨ Code Formatting Standards
