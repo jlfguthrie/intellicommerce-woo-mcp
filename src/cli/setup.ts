@@ -70,11 +70,34 @@ async function setupVSCodeConfig(projectPath: string) {
   }
 
   const mcpConfig = {
-    mcpServers: {
-      'intellicommerce-woo': {
+    inputs: [
+      {
+        type: 'promptString',
+        id: 'woocommerce-api-url',
+        description: 'WooCommerce Store URL (e.g., https://your-store.com)'
+      },
+      {
+        type: 'promptString',
+        id: 'woocommerce-consumer-key',
+        description: 'WooCommerce Consumer Key'
+      },
+      {
+        type: 'promptString',
+        id: 'woocommerce-consumer-secret',
+        description: 'WooCommerce Consumer Secret',
+        password: true
+      }
+    ],
+    servers: {
+      intellicommerceWoo: {
+        type: 'stdio',
         command: 'intellicommerce-woo-mcp',
         args: [],
-        env: {}
+        env: {
+          WOOCOMMERCE_API_URL: '${input:woocommerce-api-url}',
+          WOOCOMMERCE_CONSUMER_KEY: '${input:woocommerce-consumer-key}',
+          WOOCOMMERCE_CONSUMER_SECRET: '${input:woocommerce-consumer-secret}'
+        }
       }
     }
   };

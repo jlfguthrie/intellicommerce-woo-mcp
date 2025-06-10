@@ -158,3 +158,8 @@ test-connection.*
 .jest/
 .test-results/
 *.mcp.json
+
+# Session files - not for public repository
+docs/SESSION_*.md
+docs/MCP_STATUS_*.md
+docs/internal/
