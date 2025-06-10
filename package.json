@@ -1,10 +1,14 @@
 {
-  "name": "intellicommerce-woo-mcp",
+  "name": "@intellicommerce/woo-mcp",
   "version": "1.0.0",
   "description": "✨IntelliCommerce✨ Woo MCP - A commercial-grade Model Context Protocol server for intelligent WooCommerce interactions. Made with 🧡 in Cape Town 🇿🇦",
   "type": "module",
   "main": "./build/server.js",
   "exports": "./build/server.js",
+  "bin": {
+    "intellicommerce-woo-mcp": "./bin/intellicommerce-woo-mcp"
+  },
+  "preferGlobal": true,
   "engines": {
     "node": ">=18.0.0"
   },
@@ -21,7 +25,10 @@
     "typecheck": "tsc --noEmit",
     "mcp:inspect": "npx @modelcontextprotocol/inspector node build/server.js",
     "prestart": "npm run build",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "global:install": "npm run build && npm install -g .",
+    "global:uninstall": "npm uninstall -g @intellicommerce/woo-mcp",
+    "global:test": "intellicommerce-woo-mcp --help"
   },
   "keywords": [
     "intellicommerce",

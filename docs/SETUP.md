@@ -1,4 +1,31 @@
-# 🚀 IntelliCommerce✨ Woo MCP - Setup Guide
+# 🚀 In# 🚀 IntelliCommerce✨ Woo MCP - Setup Guide
+
+## 🎯 Installation Methods
+
+Choose your preferred installation method:
+
+### 🌍 **Global Installation** ⭐ *Recommended for Production*
+
+```bash
+# Install globally from npm
+npm install -g @intellicommerce/woo-mcp
+
+# Verify installation
+intellicommerce-woo-mcp --help
+
+# Setup in any project
+cd your-project-directory
+intellicommerce-woo-mcp setup
+```
+
+### 💻 **Local Development Installation**
+
+```bash
+# Clone and build locally
+git clone https://github.com/jlfguthrie/intellicommerce-woo-mcp.git
+cd intellicommerce-woo-mcp
+npm install && npm run build
+```oo MCP - Setup Guide
 
 ## 📋 Prerequisites
 
@@ -22,11 +49,28 @@ cd intellicommerce-woo-mcp
 npm install
 ```
 
-### 3. Configure Environment
+## ⚙️ Configuration
 
-Copy the environment template and add your WooCommerce credentials:
+### 🌍 **Global Installation Configuration**
+
+After global installation:
 
 ```bash
+# Set environment variables (required)
+export WOOCOMMERCE_API_URL="https://your-store.com"
+export WOOCOMMERCE_CONSUMER_KEY="ck_your_key"
+export WOOCOMMERCE_CONSUMER_SECRET="cs_your_secret"
+
+# Setup MCP configuration for current project
+intellicommerce-woo-mcp setup
+```
+
+### 💻 **Local Development Configuration**
+
+For local development:
+
+```bash
+# Copy environment template
 cp .env.example .env
 ```
 

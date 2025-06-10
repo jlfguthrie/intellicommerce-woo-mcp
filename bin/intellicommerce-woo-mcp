@@ -1,0 +1,61 @@
+#!/usr/bin/env node
+
+// ✨IntelliCommerce✨ Woo MCP - Global CLI
+// Made with 🧡 in Cape Town 🇿🇦
+// Powered by Xstra AI✨ | Enabled by IntelliCommerce✨
+
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+import { spawn } from 'child_process';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Path to the actual server
+const serverPath = join(__dirname, '..', 'build', 'server.js');
+
+// Check if this is being called as MCP server or CLI setup
+const args = process.argv.slice(2);
+
+if (args.includes('--help') || args.includes('-h')) {
+  console.log(`
+✨IntelliCommerce✨ Woo MCP Server
+
+🚀 Usage:
+  intellicommerce-woo-mcp              Start MCP server
+  intellicommerce-woo-mcp setup       Setup MCP config for current project
+  intellicommerce-woo-mcp --help      Show this help
+
+🔧 Environment Variables Required:
+  WOOCOMMERCE_API_URL           Your WooCommerce store URL
+  WOOCOMMERCE_CONSUMER_KEY      WooCommerce REST API Consumer Key
+  WOOCOMMERCE_CONSUMER_SECRET   WooCommerce REST API Consumer Secret
+
+📚 Documentation: https://github.com/jlfguthrie/intellicommerce-woo-mcp
+
+Made with 🧡 in Cape Town 🇿🇦
+`);
+  process.exit(0);
+}
+
+if (args[0] === 'setup') {
+  // Setup MCP configuration for current project
+  const { setupMCPConfig } = await import('../build/cli/setup.js');
+  await setupMCPConfig();
+  process.exit(0);
+}
+
+// Start the MCP server
+const server = spawn('node', [serverPath], {
+  stdio: 'inherit',
+  env: process.env
+});
+
+server.on('close', (code) => {
+  process.exit(code);
+});
+
+server.on('error', (err) => {
+  console.error('❌ Failed to start IntelliCommerce✨ Woo MCP server:', err.message);
+  process.exit(1);
+});
