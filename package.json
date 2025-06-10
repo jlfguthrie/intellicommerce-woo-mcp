@@ -32,7 +32,12 @@
     "deps:check": "scripts/dependencies-update.sh",
     "deps:update:patch": "scripts/dependencies-update.sh patch",
     "deps:update:minor": "scripts/dependencies-update.sh minor",
+    "deps:update:major": "scripts/dependencies-update.sh major",
     "deps:update:interactive": "scripts/dependencies-update.sh interactive",
+    "deps:audit": "npm audit && npm run security:check",
+    "deps:fix": "npm audit fix && npm run deps:audit",
+    "deps:outdated": "npm outdated && npx npm-check-updates",
+    "deps:fresh": "npm run deps:audit && npm run deps:update:minor && npm run validate",
     "pre-publish": "npm run security:check && npm run structure:check && npm run validate",
     "release": "standard-version",
     "release:major": "standard-version --release-as major",
@@ -69,17 +74,17 @@
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.4.1",
-    "axios": "^1.6.7",
-    "dotenv": "^16.4.5",
+    "axios": "^1.6.8",
+    "dotenv": "^16.4.7",
     "zod": "^3.23.8",
-    "zod-to-json-schema": "^3.24.1"
+    "zod-to-json-schema": "^3.24.5"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@eslint/js": "^9.28.0",
     "@types/jest": "^29.5.14",
-    "@types/node": "^22.10.0",
+    "@types/node": "^22.10.10",
     "@typescript-eslint/eslint-plugin": "^8.34.0",
     "@typescript-eslint/parser": "^8.34.0",
     "eslint": "^9.28.0",
@@ -88,10 +93,10 @@
     "jest": "^29.7.0",
     "lint-staged": "^16.1.0",
     "prettier": "^3.5.3",
-    "rimraf": "^5.0.5",
+    "rimraf": "^5.0.10",
     "standard-version": "^9.5.0",
     "ts-jest": "^29.3.4",
-    "tsx": "^4.7.1",
+    "tsx": "^4.7.3",
     "typescript": "^5.3.3"
   },
   "lint-staged": {

@@ -7,45 +7,75 @@ set -e
 
 echo "📦 Managing package dependencies..."
 
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
 # Install npm-check-updates if not present
 if ! command -v ncu &> /dev/null; then
-    echo "📥 Installing npm-check-updates..."
+    echo -e "${BLUE}📥 Installing npm-check-updates...${NC}"
     npm install -g npm-check-updates
 fi
 
-# Check for outdated packages
-echo "🔍 Checking for outdated packages..."
+# Check Node.js and npm versions
+echo -e "${BLUE}🔍 System Information:${NC}"
+echo "Node.js: $(node --version)"
+echo "npm: $(npm --version)"
+echo "ncu: $(ncu --version)"
 echo ""
-echo "📊 Current outdated packages:"
+
+# Pre-update security check
+echo -e "${BLUE}🔒 Pre-update security audit...${NC}"
+if npm audit --audit-level=high; then
+    echo -e "${GREEN}✅ No high-severity vulnerabilities found${NC}"
+else
+    echo -e "${YELLOW}⚠️  High-severity vulnerabilities detected${NC}"
+    echo -e "${YELLOW}💡 Consider running 'npm audit fix' first${NC}"
+fi
+
+# Check for outdated packages
+echo -e "${BLUE}🔍 Checking for outdated packages...${NC}"
+echo ""
+echo -e "${BLUE}📊 Current outdated packages:${NC}"
 ncu
 
 echo ""
-echo "🔒 Security audit..."
-npm audit
 
 # Function to update packages safely
 update_packages() {
     local update_type=$1
 
+    echo -e "${BLUE}🚀 Starting $update_type updates...${NC}"
+
     case $update_type in
         "patch")
-            echo "🩹 Updating patch versions only..."
+            echo -e "${GREEN}🩹 Updating patch versions only...${NC}"
             ncu -u --target patch
             ;;
         "minor")
-            echo "📈 Updating minor versions..."
+            echo -e "${BLUE}📈 Updating minor versions...${NC}"
             ncu -u --target minor
             ;;
         "major")
-            echo "🚀 Updating major versions (CAUTION!)..."
+            echo -e "${RED}🚀 Updating major versions (CAUTION!)...${NC}"
+            echo -e "${YELLOW}⚠️  Major updates may introduce breaking changes${NC}"
+            read -p "Are you sure you want to continue? [y/N]: " -n 1 -r
+            echo
+            if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+                echo -e "${YELLOW}❌ Major update cancelled${NC}"
+                return 1
+            fi
             ncu -u --target latest
             ;;
         "interactive")
-            echo "🎯 Interactive update selection..."
+            echo -e "${BLUE}🎯 Interactive update selection...${NC}"
             ncu -i
             ;;
         *)
-            echo "Usage: $0 [patch|minor|major|interactive]"
+            echo -e "${RED}Usage: $0 [patch|minor|major|interactive]${NC}"
             echo "  patch: Update patch versions only (safest)"
             echo "  minor: Update minor versions (safe)"
             echo "  major: Update major versions (breaking changes possible)"
@@ -54,18 +84,46 @@ update_packages() {
             ;;
     esac
 
-    if [[ -f "package-lock.json" ]]; then
-        echo "🔄 Updating package-lock.json..."
-        npm install
+    # Check if any changes were made
+    if ! git diff --quiet package.json; then
+        echo -e "${GREEN}📝 Package.json updated with new versions${NC}"
+
+        if [[ -f "package-lock.json" ]]; then
+            echo -e "${BLUE}🔄 Updating package-lock.json...${NC}"
+            npm install
+        fi
+
+        echo -e "${BLUE}🧪 Running tests after update...${NC}"
+        if npm run test:unit; then
+            echo -e "${GREEN}✅ Tests passed${NC}"
+        else
+            echo -e "${RED}❌ Tests failed after update${NC}"
+            echo -e "${YELLOW}💡 Consider reverting changes or fixing tests${NC}"
+            return 1
+        fi
+
+        echo -e "${BLUE}🔨 Testing build...${NC}"
+        if npm run build; then
+            echo -e "${GREEN}✅ Build successful${NC}"
+        else
+            echo -e "${RED}❌ Build failed after update${NC}"
+            return 1
+        fi
+
+        echo -e "${BLUE}🔒 Post-update security audit...${NC}"
+        if npm audit --audit-level=high; then
+            echo -e "${GREEN}✅ Security audit clean${NC}"
+        else
+            echo -e "${YELLOW}⚠️  New security issues detected${NC}"
+        fi
+
+        echo -e "${GREEN}✅ Package updates completed successfully!${NC}"
+        echo -e "${BLUE}📋 Summary of changes:${NC}"
+        git diff --no-color package.json | grep -E "^\+.*\".*\":" | sed 's/^+/  /' || echo "  No dependency changes detected"
+
+    else
+        echo -e "${GREEN}✅ All packages are already up to date!${NC}"
     fi
-
-    echo "🧪 Running tests after update..."
-    npm run test:unit
-
-    echo "🔨 Testing build..."
-    npm run build
-
-    echo "✅ Package updates completed successfully!"
 }
 
 # If argument provided, run update

@@ -172,6 +172,84 @@
         "focus": true,
         "panel": "shared"
       }
+    },
+    {
+      "label": "📦 Check Dependencies",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "deps:check"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "🔒 Audit Dependencies",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "deps:audit"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "🩹 Update Patch Dependencies",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "deps:update:patch"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "📈 Update Minor Dependencies",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "deps:update:minor"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "🎯 Interactive Dependency Update",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "deps:update:interactive"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "🌿 Fresh Dependencies (Audit + Minor Update + Validate)",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "deps:fresh"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
     }
   ]
 }
