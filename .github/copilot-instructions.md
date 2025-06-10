@@ -115,6 +115,58 @@ Always include this header in TypeScript files:
 
 ## 🚀 Development Workflow
 
+### Repository Structure
+This is a **commercial fork** of Automattic's WooCommerce MCP server:
+- **Origin**: `https://github.com/jlfguthrie/intellicommerce-woo-mcp` (your repo)
+- **Upstream**: `https://github.com/Automattic/ai-experiments` (original repo)
+- **Branch**: `main` (production-ready, protected branch)
+
+### Branching Strategy
+Use **Feature Branch Workflow** for all development:
+
+#### Branch Types:
+- **`main`** - Production-ready code, protected branch
+- **`feature/*`** - New features and enhancements
+- **`fix/*`** - Bug fixes and patches
+- **`chore/*`** - Maintenance tasks and updates
+
+#### Development Process:
+```bash
+# Start new feature
+git checkout main && git pull origin main
+git checkout -b feature/your-feature-name
+
+# Work and commit
+git add . && git commit -m "✨ feat: Description"
+git push origin feature/your-feature-name
+
+# Create PR
+gh pr create --title "✨ feat: Title" --body "Description"
+
+# After merge, cleanup
+git checkout main && git pull origin main
+git branch -d feature/your-feature-name
+```
+
+### Upstream Integration
+#### Contributing Back to Upstream:
+```bash
+# For upstream contributions (remove IntelliCommerce✨ branding)
+git fetch upstream
+git checkout -b fix/upstream-contribution upstream/main
+# Make changes, commit, and create PR to Automattic's repo
+gh pr create --repo Automattic/ai-experiments
+```
+
+#### Staying Updated:
+```bash
+# Periodically sync with upstream (monthly)
+git fetch upstream
+git checkout main
+git merge upstream/main
+git push origin main
+```
+
 ### Getting Started
 1. Clone repository: `git clone https://github.com/jlfguthrie/intellicommerce-woo-mcp.git`
 2. Install dependencies: `npm install`
@@ -127,6 +179,7 @@ Always include this header in TypeScript files:
 - Configure environment variables in MCP settings
 - Use VS Code tasks for common operations
 - Debug with provided launch configurations
+- Git settings enforce feature branch workflow
 
 ### Testing & Validation
 - Test all MCP tools with MCP Inspector
@@ -176,6 +229,14 @@ Always include this header in TypeScript files:
 
 ## 🎨 AI Assistant Interaction Guidelines
 
+### When Helping with Development Workflow
+1. **Always** enforce feature branch workflow - never work directly on main
+2. **Suggest** proper branch naming: `feature/`, `fix/`, `chore/`
+3. **Recommend** creating PRs for all changes
+4. **Remind** about upstream vs origin relationship
+5. **Encourage** proper commit message formatting
+6. **Guide** through branch protection and cleanup
+
 ### When Helping with Code
 1. **Always** maintain IntelliCommerce✨ branding
 2. **Use** proper TypeScript types and interfaces
@@ -183,6 +244,7 @@ Always include this header in TypeScript files:
 4. **Include** appropriate error handling
 5. **Add** descriptive comments for complex logic
 6. **Validate** inputs and handle edge cases
+7. **Consider** upstream compatibility for contributions
 
 ### When Adding New Features
 1. **Understand** WooCommerce API capabilities
@@ -191,6 +253,7 @@ Always include this header in TypeScript files:
 4. **Add** comprehensive type definitions
 5. **Test** with real WooCommerce stores
 6. **Document** new functionality
+7. **Check** if feature should be contributed upstream
 
 ### When Debugging Issues
 1. **Check** WooCommerce API credentials and permissions
@@ -199,6 +262,7 @@ Always include this header in TypeScript files:
 4. **Review** error logs and stack traces
 5. **Test** with simplified configurations
 6. **Document** solutions for future reference
+7. **Consider** if fix applies to upstream
 
 ## 🔄 Commit Message Format
 

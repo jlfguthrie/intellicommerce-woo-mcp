@@ -35,9 +35,133 @@
 
 ## 🛠️ Development Workflow
 
-### VS Code Tasks
+### 🌿 **Branching Strategy**
+
+This project follows a **Feature Branch Workflow** to ensure main branch stability:
+
+#### **Branch Types:**
+- **`main`** - Production-ready code, protected branch
+- **`feature/*`** - New features and enhancements
+- **`fix/*`** - Bug fixes and patches
+- **`chore/*`** - Maintenance tasks and updates
+
+#### **Development Process:**
+
+1. **Start New Feature**
+   ```bash
+   # Ensure you're on main and up to date
+   git checkout main
+   git pull origin main
+
+   # Create feature branch
+   git checkout -b feature/your-feature-name
+   ```
+
+2. **Work on Feature**
+   ```bash
+   # Make changes, commit regularly
+   git add .
+   git commit -m "✨ feat: Add feature description"
+
+   # Push to your branch
+   git push origin feature/your-feature-name
+   ```
+
+3. **Submit for Review**
+   ```bash
+   # Create Pull Request via GitHub CLI
+   gh pr create --title "✨ feat: Your feature title" --body "Description of changes"
+   ```
+
+4. **After PR Approval**
+   ```bash
+   # Merge via GitHub (Squash and Merge preferred)
+   # Clean up local branch
+   git checkout main
+   git pull origin main
+   git branch -d feature/your-feature-name
+   ```
+
+### 🔄 **Upstream Integration**
+
+This repository is a **commercial fork** of Automattic's WooCommerce MCP server:
+
+- **Origin**: `https://github.com/jlfguthrie/intellicommerce-woo-mcp` (your repo)
+- **Upstream**: `https://github.com/Automattic/ai-experiments` (original repo)
+
+#### **Contributing Back to Upstream:**
+
+1. **Create Upstream Contribution Branch**
+   ```bash
+   # Fetch latest upstream changes
+   git fetch upstream
+
+   # Create branch from upstream main
+   git checkout -b fix/upstream-contribution upstream/main
+
+   # Make your changes (remove IntelliCommerce✨ branding for upstream)
+   # Commit and push to your fork
+   git push origin fix/upstream-contribution
+
+   # Create PR to Automattic's repository
+   gh pr create --repo Automattic/ai-experiments --title "fix: Your contribution"
+   ```
+
+2. **Staying Updated with Upstream:**
+   ```bash
+   # Periodically sync with upstream (monthly or as needed)
+   git fetch upstream
+   git checkout main
+   git merge upstream/main
+   git push origin main
+   ```
+
+### 🎯 **VS Code Integration**
+
+#### **Tasks Available:**
 - **Build**: `Cmd+Shift+P` → "Tasks: Run Task" → "✨ Build IntelliCommerce✨ Woo MCP"
 - **Start Server**: `Cmd+Shift+P` → "Tasks: Run Task" → "🚀 Start IntelliCommerce✨ Woo MCP Server"
+- **Watch Mode**: `Cmd+Shift+P` → "Tasks: Run Task" → "🔄 Watch & Build IntelliCommerce✨ Woo MCP"
+- **Test MCP**: `Cmd+Shift+P` → "Tasks: Run Task" → "🔍 Test MCP Connection"
+
+#### **Git Integration:**
+- **Auto-fetch**: Enabled for tracking upstream changes
+- **Smart Commit**: Enabled for efficient workflow
+- **Branch Protection**: Main branch should be protected on GitHub
+
+### 📋 **Available NPM Scripts**
+```bash
+npm run build      # Build TypeScript to JavaScript
+npm start          # Start the MCP server
+npm run dev        # Start with TypeScript directly
+npm run clean      # Clean build directory
+npm run lint       # Run ESLint
+npm run format     # Format code with Prettier
+```
+
+### 🔒 **Branch Protection Rules**
+
+For production safety, configure these GitHub branch protection rules:
+
+1. **Main Branch Protection:**
+   ```bash
+   # Via GitHub CLI
+   gh api repos/jlfguthrie/intellicommerce-woo-mcp/branches/main/protection \
+     --method PUT \
+     --field required_status_checks='{"strict":true,"contexts":[]}' \
+     --field enforce_admins=true \
+     --field required_pull_request_reviews='{"required_approving_review_count":1,"dismiss_stale_reviews":true}' \
+     --field restrictions=null
+   ```
+
+2. **Manual Setup via GitHub:**
+   - Go to: https://github.com/jlfguthrie/intellicommerce-woo-mcp/settings/branches
+   - Add rule for `main` branch:
+     - ✅ Require a pull request before merging
+     - ✅ Require approvals (1 minimum)
+     - ✅ Dismiss stale PR approvals when new commits are pushed
+     - ✅ Require status checks to pass before merging
+     - ✅ Include administrators
 - **Watch Mode**: `Cmd+Shift+P` → "Tasks: Run Task" → "🔄 Watch & Build IntelliCommerce✨ Woo MCP"
 - **Test MCP**: `Cmd+Shift+P` → "Tasks: Run Task" → "🔍 Test MCP Connection"
 
