@@ -12,33 +12,21 @@ The **IntelliCommerce✨ Woo MCP** is a commercial-grade Model Context Protocol 
 ### 🚧 Unreleased Changes
 
 #### Recent Commits:
-- ✅ feat: Complete comprehensive testing framework and fix test issues (87a0f95)
-- 🔧 fix: Update .gitignore to allow test files and restore security tests (8923bb3)
-- 📝 docs: Update changelog with latest commit information (a87a00b)
-- 📈 feat: Implement comprehensive changelog management system (f7855b3)
-- 📦 feat: Implement comprehensive dependency management system (f81d245)
-- 🔧 fix: Resolve commit hook issues and update Husky to v8+ syntax (c52c65f)
-- ✅ test: Verify commit hooks are working properly (f735c30)
-- test: Testing commit hooks (4c36fa7)
-- 🔧 chore: Add CI/CD handover documentation (086fd92)
-- 🔄 revert: Remove strict ESLint rules and restore upstream compatibility (60fade3)
-- 🔄 revert: Remove strict ESLint rules while keeping CI/CD infrastructure (aa1385e)
 
-### 📦 Dependency Updates Since v1.0.1
 
-#### Updated Dependencies:
+### 📦 Dependency Updates Since v1.1.0
 
-- 87a0f95 ✅ feat: Complete comprehensive testing framework and fix test issues
-- f7855b3 📈 feat: Implement comprehensive changelog management system
-- f81d245 📦 feat: Implement comprehensive dependency management system
 
-#### Security Updates:
+## [1.1.0](https://github.com/jlfguthrie/intellicommerce-woo-mcp/compare/v1.0.1...v1.1.0) (2025-06-10)
 
-- 87a0f95 ✅ feat: Complete comprehensive testing framework and fix test issues
-- 8923bb3 🔧 fix: Update .gitignore to allow test files and restore security tests
-- f7855b3 📈 feat: Implement comprehensive changelog management system
-- f81d245 📦 feat: Implement comprehensive dependency management system
 
+### ✅ Tests
+
+* Testing commit hooks ([4c36fa7](https://github.com/jlfguthrie/intellicommerce-woo-mcp/commit/4c36fa7ee6550e5311fe0001143a9d89c627465d))
+
+## [1.0.0] - 2025-06-10
+
+### ✨ Initial Release
 
 #### 🎯 New Features
 - **Complete MCP Server Implementation** for WooCommerce integration
