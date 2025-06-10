@@ -62,6 +62,8 @@
     "publish:npm": "npm run build && npm publish",
     "publish:npm:dry": "npm run build && npm publish --dry-run",
     "publish:auto": "npm run release && npm run publish:npm && git push --follow-tags origin main",
+    "publish:automated": "scripts/publish-automated.sh",
+    "publish:automated:dry": "scripts/publish-automated.sh --dry-run",
     "publish:test": "npm run build && npm pack && echo \"Package created successfully for testing\"",
     "husky:install": "husky install",
     "prestart": "npm run build",
