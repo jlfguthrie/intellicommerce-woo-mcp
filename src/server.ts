@@ -8,7 +8,6 @@ dotenv.config(); // Load environment variables from .env first
 
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import { z } from 'zod';
 import { allTools, toolHandlers } from './tools/index.js';
 
 // Create IntelliCommerce✨ Woo MCP server instance
@@ -19,10 +18,7 @@ const server = new McpServer(
   },
   {
     capabilities: {
-      tools: allTools.reduce((acc, tool) => {
-        acc[tool.name] = tool;
-        return acc;
-      }, {} as Record<string, any>),
+      tools: {},
     },
   }
 );
@@ -46,9 +42,13 @@ for (const tool of allTools) {
     };
   };
 
-  // Create a schema that allows any properties - validation is handled by the tool handlers
-  const schema = z.object({}).catchall(z.unknown());
-  server.tool(tool.name, schema.shape, wrappedHandler);
+  // Register tool with proper description and input schema
+  server.tool(
+    tool.name,
+    tool.description || 'No description available',
+    tool.inputSchema,
+    wrappedHandler
+  );
 }
 
 async function main() {
@@ -104,14 +104,14 @@ process.on('SIGINT', () => {
   );
   process.exit(0);
 });
-process.on('uncaughtException', (error) => {
+process.on('uncaughtException', error => {
   console.error(
     '❌ Uncaught exception in ✨IntelliCommerce✨ Woo MCP Server:',
     error
   );
   process.exit(1);
 });
-process.on('unhandledRejection', (error) => {
+process.on('unhandledRejection', error => {
   console.error(
     '❌ Unhandled rejection in ✨IntelliCommerce✨ Woo MCP Server:',
     error
