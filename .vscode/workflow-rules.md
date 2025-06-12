@@ -18,7 +18,7 @@
 ### Project Status
 - **Production-Ready**: ✅ Commercial-grade fork of Automattic's WooCommerce MCP
 - **Global NPM Package**: ✅ Available as `intellicommerce-woo-mcp`
-- **Testing**: ✅ 39 tests across 5 test suites (Unit, Integration, MCP, E2E, Security)
+- **Testing**: ✅ 48 tests across 6 test suites (Unit, Integration, MCP, E2E, Security, Tools)
 - **Documentation**: ✅ Comprehensive user and developer docs
 
 ---
@@ -28,7 +28,7 @@
 ### 1. **ALWAYS Run Tests Before Any Changes**
 ```bash
 # REQUIRED before any code changes
-npm run validate  # Runs typecheck + all 39 tests
+npm run validate  # Runs typecheck + all 48 tests
 
 # Individual test suites
 npm run test:unit        # 4 tests  - Server core functionality
@@ -36,6 +36,7 @@ npm run test:integration # 10 tests - MCP server integration
 npm run test:mcp        # 6 tests  - Protocol compliance
 npm run test:e2e        # 7 tests  - End-to-end workflows
 npm run test:security   # 12 tests - Security validation
+npm run test:tools      # 9 tests  - Tool description validation
 ```
 
 ### 2. **Feature Branch Workflow (MANDATORY)**
