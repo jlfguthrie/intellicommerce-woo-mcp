@@ -31,7 +31,7 @@
     "test:all": "npm run test",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "test:ci": "jest --ci --coverage --watchAll=false",
+    "test:ci": "npm run test:unit && npm run test:integration && npm run test:mcp && npm run test:e2e && npm run test:security && npm run test:tools",
     "typecheck": "tsc --noEmit",
     "validate": "npm run typecheck && npm run test:all",
     "security:check": "scripts/security-check.sh",

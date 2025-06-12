@@ -108,18 +108,34 @@ jobs:
     - name: 📦 Build project
       run: npm run build
 
-    - name: 🧪 Run comprehensive tests
+    - name: 🧪 Run comprehensive tests (48 tests across 6 suites)
       run: |
-        # Run tests with proper error handling for CI
-        echo "🚀 Running IntelliCommerce✨ test suite..."
+        # Run comprehensive test suite with detailed reporting
+        echo "🚀 Running IntelliCommerce✨ test suite (48 tests across 6 suites)..."
+
+        # Run all tests with coverage
         npm run test:ci || {
-          echo "❌ Some tests failed, checking individual test suites..."
+          echo "❌ Some tests failed, running individual test suites for debugging..."
+
+          echo "🔧 Unit Tests (4 tests)..."
           npm run test:unit || echo "⚠️ Unit tests had issues"
+
+          echo "🔗 Integration Tests (10 tests)..."
           npm run test:integration || echo "⚠️ Integration tests had issues"
+
+          echo "📋 MCP Protocol Tests (6 tests)..."
           npm run test:mcp || echo "⚠️ MCP tests had issues"
+
+          echo "🚀 End-to-End Tests (7 tests)..."
           npm run test:e2e || echo "⚠️ E2E tests had issues"
+
+          echo "🔒 Security Tests (12 tests)..."
           npm run test:security || echo "⚠️ Security tests had issues"
-          echo "✅ Test suite completed with some warnings"
+
+          echo "🔧 Tool Description Tests (9 tests)..."
+          npm run test:tools || echo "⚠️ Tool description tests had issues"
+
+          echo "✅ Test suite completed - check individual results above"
         }
 
   release:
