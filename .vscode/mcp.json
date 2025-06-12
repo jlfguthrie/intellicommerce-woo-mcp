@@ -20,8 +20,8 @@
   "servers": {
     "intellicommerceWoo": {
       "type": "stdio",
-      "command": "intellicommerce-woo-mcp",
-      "args": [],
+      "command": "node",
+      "args": ["${workspaceFolder}/build/server.js"],
       "env": {
         "WOOCOMMERCE_API_URL": "${input:woocommerce-api-url}",
         "WOOCOMMERCE_CONSUMER_KEY": "${input:woocommerce-consumer-key}",

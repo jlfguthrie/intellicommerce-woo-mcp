@@ -22,7 +22,7 @@
     "format": "prettier --write \"src/**/*.{ts,js,json,md}\" || true",
     "format:check": "prettier --check \"src/**/*.{ts,js,json,md}\" || true",
     "test": "npm run test:unit && npm run test:integration && npm run test:mcp && npm run test:e2e && npm run test:security",
-    "test:unit": "jest --testPathPattern=tests/.*\\.test\\.ts$ --testNamePattern=\"Unit Tests\"",
+    "test:unit": "jest --testPathPattern=tests/server\\.test\\.ts$",
     "test:integration": "jest --testPathPattern=tests/integration\\.test\\.ts$",
     "test:mcp": "jest --testPathPattern=tests/mcp-protocol\\.test\\.ts$",
     "test:e2e": "jest --testPathPattern=tests/e2e\\.test\\.ts$",
