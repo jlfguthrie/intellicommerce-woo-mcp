@@ -1,9 +1,32 @@
 #!/usr/bin/env sh
-# ✨IntelliCommerce✨ Woo MCP - Pre-commit Hook
+# ✨IntelliCommerce✨ Woo MCP - Pre-commit Hook with Branch Protection
 # Made with 🧡 in Cape Town 🇿🇦
 # Powered by Xstra AI✨ | Enabled by IntelliCommerce✨
 
 echo "🔍 Running pre-commit validation..."
+
+# CRITICAL: Check if we're on main branch - block commits to main
+current_branch=$(git branch --show-current)
+if [ "$current_branch" = "main" ]; then
+    echo ""
+    echo "🚨 ERROR: Direct commits to main branch are not allowed!"
+    echo ""
+    echo "💡 Please create a feature branch:"
+    echo "   git checkout -b feature/your-feature-name"
+    echo ""
+    echo "🎯 Proper workflow:"
+    echo "   1. Create feature branch: feature/my-feature"
+    echo "   2. Make changes and commit"
+    echo "   3. Push: git push origin feature/my-feature"
+    echo "   4. Create PR via GitHub"
+    echo "   5. Merge PR, then cleanup local branch"
+    echo ""
+    echo "❌ Commit blocked to enforce feature branch workflow!"
+    echo ""
+    exit 1
+fi
+
+echo "✅ Safe: Working on feature branch '$current_branch'"
 
 # Step 1: Format staged files (this will modify files)
 echo "🎨 Formatting staged files..."
