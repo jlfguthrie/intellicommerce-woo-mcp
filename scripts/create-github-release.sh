@@ -91,7 +91,7 @@ trigger_workflow() {
         echo -e "${YELLOW}   4. Publish to npm (if NPM_TOKEN is configured)${NC}"
         echo ""
         echo -e "${GREEN}🎉 Release process initiated!${NC}"
-
+        
         # Try to open the actions page
         if command -v open > /dev/null 2>&1; then
             echo -e "${BLUE}🌐 Opening GitHub Actions in browser...${NC}"
@@ -107,6 +107,107 @@ trigger_workflow() {
         exit 1
     fi
 }
+
+# Function to show help
+show_help() {
+    echo -e "${BLUE}Usage: $0 [RELEASE_TYPE]${NC}"
+    echo ""
+    echo -e "${YELLOW}Release Types:${NC}"
+    echo -e "  ${GREEN}patch${NC}  - Bug fixes (1.0.0 → 1.0.1)"
+    echo -e "  ${GREEN}minor${NC}  - New features (1.0.0 → 1.1.0)"
+    echo -e "  ${GREEN}major${NC}  - Breaking changes (1.0.0 → 2.0.0)"
+    echo -e "  ${GREEN}auto${NC}   - Auto-determine from commit messages (default)"
+    echo ""
+    echo -e "${YELLOW}Examples:${NC}"
+    echo -e "  $0 patch         # Create patch release"
+    echo -e "  $0 minor         # Create minor release"
+    echo -e "  $0 major         # Create major release"
+    echo -e "  $0               # Auto-determine release type"
+    echo ""
+    echo -e "${PURPLE}Made with 🧡 in Cape Town 🇿🇦${NC}"
+    echo -e "${PURPLE}Powered by Xstra AI✨ | Enabled by IntelliCommerce✨${NC}"
+}
+
+# Function to determine release type from commits
+determine_release_type() {
+    LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+    
+    echo -e "${BLUE}🔍 Analyzing commits since $LAST_TAG...${NC}"
+    
+    # Check commit messages since last tag
+    if git log --pretty=format:"%s" ${LAST_TAG}..HEAD | grep -qE "^(feat|✨|BREAKING|breaking)"; then
+        if git log --pretty=format:"%s" ${LAST_TAG}..HEAD | grep -qE "BREAKING|breaking"; then
+            echo "major"
+        else
+            echo "minor"
+        fi
+    else
+        echo "patch"
+    fi
+}
+
+# Main function
+main() {
+    local release_type=${1:-"auto"}
+
+    # Handle help
+    if [[ "$release_type" == "--help" ]] || [[ "$release_type" == "-h" ]]; then
+        show_help
+        exit 0
+    fi
+
+    # Auto-determine release type if needed
+    if [[ "$release_type" == "auto" ]]; then
+        release_type=$(determine_release_type)
+        echo -e "${GREEN}🎯 Auto-determined release type: $release_type${NC}"
+    fi
+
+    # Validate release type
+    case $release_type in
+        "patch"|"minor"|"major")
+            ;;
+        *)
+            echo -e "${RED}❌ Invalid release type: $release_type${NC}"
+            echo -e "${YELLOW}💡 Valid options: patch, minor, major, auto${NC}"
+            echo ""
+            show_help
+            exit 1
+            ;;
+    esac
+
+    echo -e "${BLUE}Starting GitHub release process...${NC}"
+    echo -e "${BLUE}Release type: $release_type${NC}"
+    echo ""
+
+    # Pre-flight checks
+    check_gh_cli
+    check_git_status
+
+    # Check if there are commits to release
+    LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+    COMMITS_SINCE_TAG=$(git rev-list ${LAST_TAG}..HEAD --count 2>/dev/null || echo "1")
+    
+    if [ "$COMMITS_SINCE_TAG" -eq "0" ]; then
+        echo -e "${YELLOW}⚠️ No new commits since $LAST_TAG${NC}"
+        echo -e "${YELLOW}💡 Nothing to release${NC}"
+        read -p "Create release anyway? [y/N]: " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+            echo -e "${BLUE}⏭️ Release skipped${NC}"
+            exit 0
+        fi
+    else
+        echo -e "${GREEN}✅ Found $COMMITS_SINCE_TAG commits since $LAST_TAG${NC}"
+    fi
+
+    # Trigger the GitHub Actions workflow
+    trigger_workflow "$release_type"
+}
+
+# Handle command line arguments
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi
 
         # Check commit messages since last tag
         if git log --pretty=format:"%s" ${LAST_TAG}..HEAD | grep -qE "^(feat|✨|BREAKING|breaking)"; then
