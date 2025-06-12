@@ -138,8 +138,9 @@ jobs:
           echo "✅ Test suite completed - check individual results above"
         }
 
-  release:
-    name: 🚀 Release
+  # Check if release needed and suggest manual release
+  check-release:
+    name: 📋 Check Release Status
     runs-on: ubuntu-latest
     needs: test
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -151,55 +152,135 @@ jobs:
         fetch-depth: 0
         token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: 🟢 Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20.x'
-        cache: 'npm'
-        registry-url: 'https://registry.npmjs.org'
-
-    - name: 📦 Install dependencies
-      run: npm ci
-
-    - name: 🏗️ Build project
-      run: npm run build
-
-    - name: 🔧 Configure Git
+    - name: 🔍 Check if release needed
+      id: check
       run: |
-        git config user.name "IntelliCommerce✨ Bot"
-        git config user.email "info@intellicommerce.co.za"
+        # Check if we should suggest a release
+        LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+        COMMITS_SINCE_TAG=$(git rev-list ${LAST_TAG}..HEAD --count 2>/dev/null || echo "999")
 
-    - name: 🚀 Release
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        HUSKY: 0  # Disable husky for CI releases
-      run: |
-        # Set npm authentication
-        if [ -n "$NODE_AUTH_TOKEN" ]; then
-          echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" > ~/.npmrc
-        fi
+        echo "Last tag: $LAST_TAG"
+        echo "Commits since tag: $COMMITS_SINCE_TAG"
 
-        # Skip release if no changes since last release
-        if git describe --tags --exact-match HEAD 2>/dev/null; then
-          echo "🏷️ Current commit is already tagged, skipping release"
-          exit 0
-        fi
+        if [ "$COMMITS_SINCE_TAG" -gt "0" ]; then
+          echo "should_release=true" >> $GITHUB_OUTPUT
+          echo "✅ Release needed - $COMMITS_SINCE_TAG commits since $LAST_TAG"
 
-        # Generate enhanced changelog
-        npm run changelog:generate
-
-        # Create release with standard-version (husky disabled)
-        npm run release:patch
-
-        # Push release to GitHub
-        git push --follow-tags origin main
-
-        # Automated npm publishing
-        if [ -n "$NODE_AUTH_TOKEN" ]; then
-          NPM_TOKEN=$NODE_AUTH_TOKEN npm run publish:automated
+          # Auto-determine release type based on commit messages
+          if git log --pretty=format:"%s" ${LAST_TAG}..HEAD | grep -qE "^(feat|✨)"; then
+            if git log --pretty=format:"%s" ${LAST_TAG}..HEAD | grep -qE "BREAKING|breaking"; then
+              echo "suggested_type=major" >> $GITHUB_OUTPUT
+            else
+              echo "suggested_type=minor" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "suggested_type=patch" >> $GITHUB_OUTPUT
+          fi
         else
-          echo "⚠️ NPM_TOKEN not available, skipping npm publish"
+          echo "should_release=false" >> $GITHUB_OUTPUT
+          echo "⏭️ No release needed - no commits since $LAST_TAG"
         fi
 
-        echo "🎉 Enhanced release and publishing completed!"
+    - name: 📢 Release Guidance
+      run: |
+        if [ "${{ steps.check.outputs.should_release }}" = "true" ]; then
+          echo "🚀 IntelliCommerce✨ Woo MCP - Release Recommended"
+          echo "=============================================="
+          echo ""
+          echo "📋 Status: ${{ steps.check.outputs.should_release && 'Release needed' || 'No release needed' }}"
+          echo "🎯 Suggested type: ${{ steps.check.outputs.suggested_type || 'none' }}"
+          echo ""
+          echo "🔧 To create release:"
+          echo "   1. Go to: https://github.com/jlfguthrie/intellicommerce-woo-mcp/actions/workflows/release.yml"
+          echo "   2. Click 'Run workflow'"
+          echo "   3. Select release type: ${{ steps.check.outputs.suggested_type || 'patch' }}"
+          echo "   4. Click 'Run workflow'"
+          echo ""
+          echo "💡 Or use GitHub CLI:"
+          echo "   gh workflow run release.yml --field release_type=${{ steps.check.outputs.suggested_type || 'patch' }}"
+          echo ""
+          echo "✨ Made with 🧡 in Cape Town 🇿🇦"
+        else
+          echo "⏭️ No release needed - all commits already released"
+        fi
+
+    - name: 🏷️ Create Release Reminder Issue
+      if: steps.check.outputs.should_release == 'true'
+      uses: actions/github-script@v7
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const suggestedType = '${{ steps.check.outputs.suggested_type }}';
+          const lastTag = await github.rest.repos.getLatestRelease({
+            owner: context.repo.owner,
+            repo: context.repo.repo
+          }).then(r => r.data.tag_name).catch(() => 'v0.0.0');
+
+          const issueTitle = `🚀 Release ${suggestedType} version recommended`;
+          const issueBody = `# 🚀 IntelliCommerce✨ Woo MCP Release Recommendation
+
+          **Made with 🧡 in Cape Town 🇿🇦**
+          **Powered by Xstra AI✨ | Enabled by IntelliCommerce✨**
+
+          ## 📋 Release Status
+
+          - **Current commit**: ${context.sha}
+          - **Last release**: ${lastTag}
+          - **Suggested type**: \`${suggestedType}\`
+          - **Triggered by**: ${context.actor}
+
+          ## 🔧 Quick Actions
+
+          ### Option 1: GitHub Actions UI
+          1. Go to [Release Workflow](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/workflows/release.yml)
+          2. Click "Run workflow"
+          3. Select release type: \`${suggestedType}\`
+          4. Click "Run workflow"
+
+          ### Option 2: GitHub CLI
+          \`\`\`bash
+          gh workflow run release.yml --field release_type=${suggestedType}
+          \`\`\`
+
+          ### Option 3: VS Code Task
+          \`\`\`
+          Ctrl+Shift+P → "Tasks: Run Task" → "🚀 GitHub Release ${suggestedType.charAt(0).toUpperCase() + suggestedType.slice(1)}"
+          \`\`\`
+
+          ## 📋 Pre-Release Checklist
+
+          - [ ] All tests passing ✅ (verified by CI/CD)
+          - [ ] Security audit clean ✅ (verified by CI/CD)
+          - [ ] Documentation updated
+          - [ ] Breaking changes documented (if applicable)
+
+          This issue will be automatically closed when the release is created.
+
+          ---
+          *This issue was created automatically by the CI/CD pipeline.*`;
+
+          // Check if there's already an open release issue
+          const existingIssues = await github.rest.issues.listForRepo({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            state: 'open',
+            labels: 'release'
+          });
+
+          const hasOpenReleaseIssue = existingIssues.data.some(issue =>
+            issue.title.includes('Release') && issue.title.includes('recommended')
+          );
+
+          if (!hasOpenReleaseIssue) {
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: issueTitle,
+              body: issueBody,
+              labels: ['release', 'automation']
+            });
+
+            console.log('✅ Created release reminder issue');
+          } else {
+            console.log('📋 Release reminder issue already exists');
+          }

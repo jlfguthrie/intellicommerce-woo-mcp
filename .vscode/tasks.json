@@ -304,6 +304,136 @@
       }
     },
     {
+      "label": "🚀 GitHub Release (Auto)",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "release:github"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "🚀 GitHub Release Patch",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "release:github:patch"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "🚀 GitHub Release Minor",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "release:github:minor"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "🚀 GitHub Release Major",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "release:github:major"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "🎯 GitHub Actions Release (Auto)",
+      "type": "shell",
+      "command": "gh",
+      "args": ["workflow", "run", "release.yml", "--field", "release_type=auto"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "🩹 GitHub Actions Release Patch",
+      "type": "shell",
+      "command": "gh",
+      "args": ["workflow", "run", "release.yml", "--field", "release_type=patch"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "📈 GitHub Actions Release Minor",
+      "type": "shell",
+      "command": "gh",
+      "args": ["workflow", "run", "release.yml", "--field", "release_type=minor"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "🚀 GitHub Actions Release Major",
+      "type": "shell",
+      "command": "gh",
+      "args": ["workflow", "run", "release.yml", "--field", "release_type=major"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "📊 Open GitHub Actions Workflows",
+      "type": "shell",
+      "command": "open",
+      "args": ["https://github.com/jlfguthrie/intellicommerce-woo-mcp/actions"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "🔄 Open Release Workflow",
+      "type": "shell",
+      "command": "open",
+      "args": ["https://github.com/jlfguthrie/intellicommerce-woo-mcp/actions/workflows/release.yml"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
       "label": "🛡️ Open Branch Protection Settings",
       "type": "shell",
       "command": "open",
