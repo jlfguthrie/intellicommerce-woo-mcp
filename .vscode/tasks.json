@@ -161,10 +161,10 @@
       }
     },
     {
-      "label": "⬆️ Sync with Upstream",
+      "label": "⬆️ Check Upstream MCP Changes",
       "type": "shell",
       "command": "bash",
-      "args": ["-c", "git fetch upstream && git checkout main && git merge upstream/main && git push origin main"],
+      "args": ["-c", "git fetch upstream-mcp && echo '📊 Recent upstream changes in MCP directory:' && git log --oneline upstream-mcp/trunk~10..upstream-mcp/trunk -- mcp/woo/ && echo '' && echo '💡 To view specific changes: git show upstream-mcp/trunk:mcp/woo/<filename>'"],
       "group": "build",
       "presentation": {
         "echo": true,
@@ -300,6 +300,19 @@
         "echo": true,
         "reveal": "always",
         "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "🛡️ Open Branch Protection Settings",
+      "type": "shell",
+      "command": "open",
+      "args": ["https://github.com/jlfguthrie/intellicommerce-woo-mcp/settings/branches"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
         "panel": "shared"
       }
     }

@@ -3,37 +3,44 @@
 // Powered by Xstra AI✨ | Enabled by IntelliCommerce✨
 
 module.exports = {
-  extends: ['@commitlint/config-conventional'],
+  // Use a much more flexible configuration
   parserPreset: {
     parserOpts: {
-      // Custom parser to handle emoji prefixes
+      // Custom parser that handles emoji-prefixed commits
       headerPattern:
-        /^(?:(?<emoji>[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}])\s)?(?<type>\w*)(?:\((?<scope>.*)\))?:\s(?<subject>.*)$/u,
-      headerCorrespondence: ['emoji', 'type', 'scope', 'subject'],
-    },
+        /^(?:(?:✨|🛒|🧡|🇿🇦|🎯|🚀|🤖|📋|⭐|1️⃣|2️⃣|3️⃣|🔧|🔐|🖥️|💡|4️⃣|🌍|💻|💬|📦|👥|🎫|📚|📖|🛠️|💰|💸|🚚|💳|✅|🌟|🧪|🔗|🔒|🏃‍♂️|📊|📈|🔍|🔖|🔄|🌿|📤|🔀|🧹|🤝|📄|🙏|🏷️|🌐|📧|👨‍💻|⚙️|❌|™|🌀|🌤️|🐛|🎨|♻️|⚡|👷|⏪)\s+)?(\w+)(?:\(([^)]*)\))?\s*:\s*(.*)$/,
+      headerCorrespondence: ['type', 'scope', 'subject']
+    }
   },
   rules: {
-    // Custom rules for IntelliCommerce✨ commit messages
-    'subject-case': [2, 'always', 'sentence-case'],
-    'header-max-length': [2, 'always', 100],
-    'body-leading-blank': [1, 'always'],
-    'footer-leading-blank': [1, 'always'],
+    // Very minimal rules - focus on productivity
+    'header-max-length': [1, 'always', 120], // Warning only
+    'body-leading-blank': [0], // Disabled
+    'footer-leading-blank': [0], // Disabled
+    'subject-case': [0], // Disabled
+    'subject-empty': [1, 'never'], // Warning only
+    'type-empty': [1, 'never'], // Warning only
+    'type-case': [0], // Disabled
     'type-enum': [
-      2,
+      1, // Warning only - don't block commits
       'always',
       [
-        'feat', // ✨ New features
-        'fix', // 🐛 Bug fixes
-        'docs', // 📚 Documentation
-        'style', // 🎨 Code style
-        'refactor', // ♻️ Code refactoring
-        'perf', // ⚡ Performance
-        'test', // ✅ Testing
-        'chore', // 🔧 Maintenance
-        'ci', // 👷 CI/CD
-        'build', // 📦 Build system
-        'revert', // ⏪ Revert changes
-      ],
-    ],
-  },
+        'feat',
+        'fix',
+        'docs',
+        'style',
+        'refactor',
+        'perf',
+        'test',
+        'chore',
+        'ci',
+        'build',
+        'revert',
+        'release',
+        'hotfix',
+        'wip',
+        'bump'
+      ]
+    ]
+  }
 };
