@@ -12,22 +12,20 @@ The **IntelliCommerce✨ Woo MCP** is a commercial-grade Model Context Protocol 
 ### 🚧 Unreleased Changes
 
 #### Recent Commits:
-- chore: Remove unnecessary workflow optimization report (30d94a0)
-- 🔧 feat: Comprehensive workflow optimization and CI/CD pipeline fixes (194be47)
-- ✨ feat: Optimize development environment and establish AI assistant guidelines (d770929)
-- 🔧 chore: Enhance VS Code workflow rules and project configuration (3cc1c7e)
-- 🐛 fix: Fix unit test command filter issue (5a59dd3)
-- 🐛 fix: Remove internal development references from public README (bc6ae81)
+- 🔧 chore: Add CI/CD sync requirements to workflow rules (77bd614)
 
-### 📦 Dependency Updates Since v1.1.4
+### 📦 Dependency Updates Since v1.1.5
 
 #### Updated Dependencies:
 
 
-#### Security Updates:
 
-- 3cc1c7e 🔧 chore: Enhance VS Code workflow rules and project configuration
+### [1.1.5](https://github.com/jlfguthrie/intellicommerce-woo-mcp/compare/v1.1.4...v1.1.5) (2025-06-12)
 
+
+### 🧹 Chores
+
+* Remove unnecessary workflow optimization report ([30d94a0](https://github.com/jlfguthrie/intellicommerce-woo-mcp/commit/30d94a0624f91835303f52b9898c11f7d50469fa))
 
 ### [1.1.4](https://github.com/jlfguthrie/intellicommerce-woo-mcp/compare/v1.1.3...v1.1.4) (2025-06-12)
 
