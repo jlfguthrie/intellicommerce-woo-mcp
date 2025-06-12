@@ -72,7 +72,7 @@
     "publish:test": "npm run build && npm pack && echo \"Package created successfully for testing\"",
     "husky:install": "husky install",
     "prestart": "npm run build",
-    "prepare": "is-ci || husky install",
+    "prepare": "if [ \"$CI\" = \"true\" ]; then echo 'Skipping husky in CI'; else npx husky install; fi",
     "global:install": "npm run build && npm install -g .",
     "global:uninstall": "npm uninstall -g intellicommerce-woo-mcp",
     "global:test": "intellicommerce-woo-mcp --help"
