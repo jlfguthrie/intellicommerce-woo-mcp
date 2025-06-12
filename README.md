@@ -171,7 +171,21 @@ WOOCOMMERCE_CONSUMER_SECRET=cs_your_consumer_secret
 <details>
 <summary><strong>🔧 VS Code with Copilot</strong></summary>
 
-Create `.vscode/mcp.json`:
+**For Production Use (Global Installation):**
+
+```json
+{
+  "mcpServers": {
+    "intellicommerce-woo": {
+      "command": "intellicommerce-woo-mcp",
+      "args": [],
+      "env": {}
+    }
+  }
+}
+```
+
+**For Contributing/Customization (Local Build):**
 
 ```json
 {
@@ -769,8 +783,15 @@ DEFAULT_PAGE_SIZE=20
    - Check store URL includes `https://`
 
 3. **❌ Server not showing in VS Code Copilot**
+
    - Verify absolute path to `build/server.js` in `.vscode/mcp.json`
    - Restart VS Code after MCP configuration changes
+
+4. **❌ GitHub Tool Schema Errors on Global Install**
+   - These errors are unrelated to IntelliCommerce✨ Woo MCP
+   - Caused by VS Code's JSON schema download being disabled
+   - Safe to ignore - they don't affect MCP functionality
+   - To fix: Enable `json.schemaDownload.enable` in VS Code settings
 
 For more troubleshooting, see our [Troubleshooting Guide](docs/TROUBLESHOOTING.md).
 
