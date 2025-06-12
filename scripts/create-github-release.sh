@@ -91,7 +91,7 @@ trigger_workflow() {
         echo -e "${YELLOW}   4. Publish to npm (if NPM_TOKEN is configured)${NC}"
         echo ""
         echo -e "${GREEN}🎉 Release process initiated!${NC}"
-        
+
         # Try to open the actions page
         if command -v open > /dev/null 2>&1; then
             echo -e "${BLUE}🌐 Opening GitHub Actions in browser...${NC}"
@@ -131,9 +131,9 @@ show_help() {
 # Function to determine release type from commits
 determine_release_type() {
     LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
-    
+
     echo -e "${BLUE}🔍 Analyzing commits since $LAST_TAG...${NC}"
-    
+
     # Check commit messages since last tag
     if git log --pretty=format:"%s" ${LAST_TAG}..HEAD | grep -qE "^(feat|✨|BREAKING|breaking)"; then
         if git log --pretty=format:"%s" ${LAST_TAG}..HEAD | grep -qE "BREAKING|breaking"; then
@@ -186,7 +186,7 @@ main() {
     # Check if there are commits to release
     LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
     COMMITS_SINCE_TAG=$(git rev-list ${LAST_TAG}..HEAD --count 2>/dev/null || echo "1")
-    
+
     if [ "$COMMITS_SINCE_TAG" -eq "0" ]; then
         echo -e "${YELLOW}⚠️ No new commits since $LAST_TAG${NC}"
         echo -e "${YELLOW}💡 Nothing to release${NC}"
