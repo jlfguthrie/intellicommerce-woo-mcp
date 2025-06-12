@@ -207,80 +207,93 @@ jobs:
     - name: 🏷️ Create Release Reminder Issue
       if: steps.check.outputs.should_release == 'true'
       uses: actions/github-script@v7
+      continue-on-error: true
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
           const suggestedType = '${{ steps.check.outputs.suggested_type }}';
-          const lastTag = await github.rest.repos.getLatestRelease({
-            owner: context.repo.owner,
-            repo: context.repo.repo
-          }).then(r => r.data.tag_name).catch(() => 'v0.0.0');
 
-          const issueTitle = `🚀 Release ${suggestedType} version recommended`;
-          const issueBody = `# 🚀 IntelliCommerce✨ Woo MCP Release Recommendation
+          try {
+            const lastTag = await github.rest.repos.getLatestRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            }).then(r => r.data.tag_name).catch(() => 'v0.0.0');
 
-          **Made with 🧡 in Cape Town 🇿🇦**
-          **Powered by Xstra AI✨ | Enabled by IntelliCommerce✨**
+            const issueTitle = `🚀 Release ${suggestedType} version recommended`;
+            const issueBody = `# 🚀 IntelliCommerce✨ Woo MCP Release Recommendation
 
-          ## 📋 Release Status
+            **Made with 🧡 in Cape Town 🇿🇦**
+            **Powered by Xstra AI✨ | Enabled by IntelliCommerce✨**
 
-          - **Current commit**: ${context.sha}
-          - **Last release**: ${lastTag}
-          - **Suggested type**: \`${suggestedType}\`
-          - **Triggered by**: ${context.actor}
+            ## 📋 Release Status
 
-          ## 🔧 Quick Actions
+            - **Current commit**: ${context.sha}
+            - **Last release**: ${lastTag}
+            - **Suggested type**: \`${suggestedType}\`
+            - **Triggered by**: ${context.actor}
 
-          ### Option 1: GitHub Actions UI
-          1. Go to [Release Workflow](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/workflows/release.yml)
-          2. Click "Run workflow"
-          3. Select release type: \`${suggestedType}\`
-          4. Click "Run workflow"
+            ## 🔧 Quick Actions
 
-          ### Option 2: GitHub CLI
-          \`\`\`bash
-          gh workflow run release.yml --field release_type=${suggestedType}
-          \`\`\`
+            ### Option 1: GitHub Actions UI
+            1. Go to [Release Workflow](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/workflows/release.yml)
+            2. Click "Run workflow"
+            3. Select release type: \`${suggestedType}\`
+            4. Click "Run workflow"
 
-          ### Option 3: VS Code Task
-          \`\`\`
-          Ctrl+Shift+P → "Tasks: Run Task" → "🚀 GitHub Release ${suggestedType.charAt(0).toUpperCase() + suggestedType.slice(1)}"
-          \`\`\`
+            ### Option 2: GitHub CLI
+            \`\`\`bash
+            gh workflow run release.yml --field release_type=${suggestedType}
+            \`\`\`
 
-          ## 📋 Pre-Release Checklist
+            ### Option 3: VS Code Task
+            \`\`\`
+            Ctrl+Shift+P → "Tasks: Run Task" → "🚀 GitHub Release ${suggestedType.charAt(0).toUpperCase() + suggestedType.slice(1)}"
+            \`\`\`
 
-          - [ ] All tests passing ✅ (verified by CI/CD)
-          - [ ] Security audit clean ✅ (verified by CI/CD)
-          - [ ] Documentation updated
-          - [ ] Breaking changes documented (if applicable)
+            ## 📋 Pre-Release Checklist
 
-          This issue will be automatically closed when the release is created.
+            - [ ] All tests passing ✅ (verified by CI/CD)
+            - [ ] Security audit clean ✅ (verified by CI/CD)
+            - [ ] Documentation updated
+            - [ ] Breaking changes documented (if applicable)
 
-          ---
-          *This issue was created automatically by the CI/CD pipeline.*`;
+            This issue will be automatically closed when the release is created.
 
-          // Check if there's already an open release issue
-          const existingIssues = await github.rest.issues.listForRepo({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            state: 'open',
-            labels: 'release'
-          });
+            ---
+            *This issue was created automatically by the CI/CD pipeline.*`;
 
-          const hasOpenReleaseIssue = existingIssues.data.some(issue =>
-            issue.title.includes('Release') && issue.title.includes('recommended')
-          );
-
-          if (!hasOpenReleaseIssue) {
-            await github.rest.issues.create({
+            // Check if there's already an open release issue
+            const existingIssues = await github.rest.issues.listForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: issueTitle,
-              body: issueBody,
-              labels: ['release', 'automation']
+              state: 'open',
+              labels: 'release'
             });
 
-            console.log('✅ Created release reminder issue');
-          } else {
-            console.log('📋 Release reminder issue already exists');
+            const hasOpenReleaseIssue = existingIssues.data.some(issue =>
+              issue.title.includes('Release') && issue.title.includes('recommended')
+            );
+
+            if (!hasOpenReleaseIssue) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: issueTitle,
+                body: issueBody,
+                labels: ['release', 'automation']
+              });
+
+              console.log('✅ Created release reminder issue');
+            } else {
+              console.log('📋 Release reminder issue already exists');
+            }
+          } catch (error) {
+            if (error.status === 410 || error.message.includes('Issues are disabled')) {
+              console.log('📋 Issues are disabled for this repository - skipping release reminder issue creation');
+              console.log('✨ Release guidance provided in previous step logs instead');
+              console.log(`🎯 To create ${suggestedType} release, use: gh workflow run release.yml --field release_type=${suggestedType}`);
+            } else {
+              console.log('⚠️ Failed to create release reminder issue:', error.message);
+              throw error;
+            }
           }
