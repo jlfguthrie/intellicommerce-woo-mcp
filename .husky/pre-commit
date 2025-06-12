@@ -5,18 +5,23 @@
 
 echo "🔍 Running pre-commit validation..."
 
-# Run lint-staged for staged files
+# Step 1: Format staged files (this will modify files)
+echo "🎨 Formatting staged files..."
 npx lint-staged
 
-# Run type checking
+# Step 2: Add any formatting changes back to staging
+echo "📦 Adding formatting changes to staging..."
+git add .
+
+# Step 3: Run type checking
 echo "📝 Type checking..."
 npm run typecheck
 
-# Run tests
+# Step 4: Run tests on formatted code
 echo "🧪 Running tests..."
 npm run test:unit
 
-# Build check
+# Step 5: Build check
 echo "🔨 Build check..."
 npm run build
 

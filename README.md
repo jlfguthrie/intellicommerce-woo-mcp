@@ -420,8 +420,8 @@ Made with 🧡 in Cape Town 🇿🇦
 
 ## 🧪 Testing & Quality Assurance
 
-**IntelliCommerce✨ Woo MCP** includes a comprehensive testing framework with 35+ test cases across
-5 test suites to ensure reliability and security.
+**IntelliCommerce✨ Woo MCP** includes a comprehensive testing framework with **48 test cases**
+across **6 test suites** to ensure reliability and security.
 
 ### 🧪 Test Suites
 
@@ -468,7 +468,7 @@ npm run test:mcp
 # Run E2E workflow tests
 npm run test:e2e
 
-# Test complete workflows: product lifecycle, order processing, customer management, coupon campaigns
+# Test complete business workflows and cross-entity operations
 ```
 
 </details>
@@ -480,23 +480,54 @@ npm run test:e2e
 # Run security validation tests
 npm run test:security
 
-# Test credential handling, input validation, data sanitization, error handling, and authentication
+# Test credential handling, input validation, data sanitization, and error security
 ```
+
+</details>
+
+<details>
+<summary><strong>🔧 Tool Description Tests</strong></summary>
+
+```bash
+# Run tool validation tests
+npm run test:tools
+
+# Test tool schema validation, handler verification, and formatting compatibility
+```
+
+</details>
+
+# Test complete workflows: product lifecycle, order processing, customer management, coupon campaigns
+
+````
+
+</details>
+
+<details>
+<summary><strong>🔒 Security Tests</strong></summary>
+
+```bash
+# Run security validation tests
+npm run test:security
+
+# Test credential handling, input validation, data sanitization, error handling, and authentication
+````
 
 </details>
 
 ### 🏃‍♂️ Running Tests
 
 ```bash
-# Run all test suites (35+ tests)
+# Run all test suites (48 tests across 6 suites)
 npm test
 
 # Run specific test suite
-npm run test:unit
-npm run test:integration
-npm run test:mcp
-npm run test:e2e
-npm run test:security
+npm run test:unit        # 4 tests - Server functionality
+npm run test:integration # 10 tests - System integration
+npm run test:mcp         # 6 tests - Protocol compliance
+npm run test:e2e         # 7 tests - Workflow validation
+npm run test:security    # 12 tests - Security validation
+npm run test:tools       # 9 tests - Tool description validation
 
 # Run with coverage
 npm run test:coverage

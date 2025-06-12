@@ -6,7 +6,7 @@ module.exports = {
   // IntelliCommerce✨ Code Formatting Standards
   semi: true,
   singleQuote: true,
-  trailingComma: 'es5',
+  trailingComma: 'none', // Prevent breaking tool descriptions
   tabWidth: 2,
   useTabs: false,
   printWidth: 80,
