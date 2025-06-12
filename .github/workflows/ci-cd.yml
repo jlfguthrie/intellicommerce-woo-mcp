@@ -219,45 +219,45 @@ jobs:
           const issueTitle = `🚀 Release ${suggestedType} version recommended`;
           const issueBody = `# 🚀 IntelliCommerce✨ Woo MCP Release Recommendation
 
-**Made with 🧡 in Cape Town 🇿🇦**
-**Powered by Xstra AI✨ | Enabled by IntelliCommerce✨**
+          **Made with 🧡 in Cape Town 🇿🇦**
+          **Powered by Xstra AI✨ | Enabled by IntelliCommerce✨**
 
-## 📋 Release Status
+          ## 📋 Release Status
 
-- **Current commit**: ${context.sha}
-- **Last release**: ${lastTag}
-- **Suggested type**: \`${suggestedType}\`
-- **Triggered by**: ${context.actor}
+          - **Current commit**: ${context.sha}
+          - **Last release**: ${lastTag}
+          - **Suggested type**: \`${suggestedType}\`
+          - **Triggered by**: ${context.actor}
 
-## 🔧 Quick Actions
+          ## 🔧 Quick Actions
 
-### Option 1: GitHub Actions UI
-1. Go to [Release Workflow](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/workflows/release.yml)
-2. Click "Run workflow"
-3. Select release type: \`${suggestedType}\`
-4. Click "Run workflow"
+          ### Option 1: GitHub Actions UI
+          1. Go to [Release Workflow](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/workflows/release.yml)
+          2. Click "Run workflow"
+          3. Select release type: \`${suggestedType}\`
+          4. Click "Run workflow"
 
-### Option 2: GitHub CLI
-\`\`\`bash
-gh workflow run release.yml --field release_type=${suggestedType}
-\`\`\`
+          ### Option 2: GitHub CLI
+          \`\`\`bash
+          gh workflow run release.yml --field release_type=${suggestedType}
+          \`\`\`
 
-### Option 3: VS Code Task
-\`\`\`
-Ctrl+Shift+P → "Tasks: Run Task" → "🚀 GitHub Release ${suggestedType.charAt(0).toUpperCase() + suggestedType.slice(1)}"
-\`\`\`
+          ### Option 3: VS Code Task
+          \`\`\`
+          Ctrl+Shift+P → "Tasks: Run Task" → "🚀 GitHub Release ${suggestedType.charAt(0).toUpperCase() + suggestedType.slice(1)}"
+          \`\`\`
 
-## 📋 Pre-Release Checklist
+          ## 📋 Pre-Release Checklist
 
-- [ ] All tests passing ✅ (verified by CI/CD)
-- [ ] Security audit clean ✅ (verified by CI/CD)
-- [ ] Documentation updated
-- [ ] Breaking changes documented (if applicable)
+          - [ ] All tests passing ✅ (verified by CI/CD)
+          - [ ] Security audit clean ✅ (verified by CI/CD)
+          - [ ] Documentation updated
+          - [ ] Breaking changes documented (if applicable)
 
-This issue will be automatically closed when the release is created.
+          This issue will be automatically closed when the release is created.
 
----
-*This issue was created automatically by the CI/CD pipeline.*`;
+          ---
+          *This issue was created automatically by the CI/CD pipeline.*`;
 
           // Check if there's already an open release issue
           const existingIssues = await github.rest.issues.listForRepo({
