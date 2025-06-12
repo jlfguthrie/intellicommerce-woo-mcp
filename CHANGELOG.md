@@ -12,10 +12,12 @@ The **IntelliCommerce✨ Woo MCP** is a commercial-grade Model Context Protocol 
 ### 🚧 Unreleased Changes
 
 #### Recent Commits:
-- 📊 docs: Update workflow rules with accurate test counts (a21d72c)
+- ✨ feat: Test branch protection on main (8a7d98d)
 
-### 📦 Dependency Updates Since v1.1.6
+### 📦 Dependency Updates Since v1.1.7
 
+
+### [1.1.7](https://github.com/jlfguthrie/intellicommerce-woo-mcp/compare/v1.1.6...v1.1.7) (2025-06-12)
 
 ### [1.1.6](https://github.com/jlfguthrie/intellicommerce-woo-mcp/compare/v1.1.5...v1.1.6) (2025-06-12)
 
