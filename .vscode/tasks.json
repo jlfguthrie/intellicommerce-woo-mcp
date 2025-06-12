@@ -302,6 +302,19 @@
         "focus": true,
         "panel": "shared"
       }
+    },
+    {
+      "label": "🛡️ Open Branch Protection Settings",
+      "type": "shell",
+      "command": "open",
+      "args": ["https://github.com/jlfguthrie/intellicommerce-woo-mcp/settings/branches"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared"
+      }
     }
   ]
 }
