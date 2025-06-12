@@ -1,6 +1,6 @@
 {
   "name": "intellicommerce-woo-mcp",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "✨IntelliCommerce✨ Woo MCP - A commercial-grade Model Context Protocol server for intelligent WooCommerce interactions. Made with 🧡 in Cape Town 🇿🇦",
   "type": "module",
   "main": "./build/server.js",

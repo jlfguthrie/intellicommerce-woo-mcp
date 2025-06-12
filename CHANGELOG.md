@@ -12,10 +12,35 @@ The **IntelliCommerce✨ Woo MCP** is a commercial-grade Model Context Protocol 
 ### 🚧 Unreleased Changes
 
 #### Recent Commits:
+- chore: Remove unnecessary workflow optimization report (30d94a0)
+- 🔧 feat: Comprehensive workflow optimization and CI/CD pipeline fixes (194be47)
+- ✨ feat: Optimize development environment and establish AI assistant guidelines (d770929)
+- 🔧 chore: Enhance VS Code workflow rules and project configuration (3cc1c7e)
+- 🐛 fix: Fix unit test command filter issue (5a59dd3)
+- 🐛 fix: Remove internal development references from public README (bc6ae81)
+
+### 📦 Dependency Updates Since v1.1.4
+
+#### Updated Dependencies:
 
 
-### 📦 Dependency Updates Since v1.1.0
+#### Security Updates:
 
+- 3cc1c7e 🔧 chore: Enhance VS Code workflow rules and project configuration
+
+
+### [1.1.4](https://github.com/jlfguthrie/intellicommerce-woo-mcp/compare/v1.1.3...v1.1.4) (2025-06-12)
+
+### [1.1.3](https://github.com/jlfguthrie/intellicommerce-woo-mcp/compare/v1.1.2...v1.1.3) (2025-06-10)
+
+### [1.1.2](https://github.com/jlfguthrie/intellicommerce-woo-mcp/compare/v1.1.1...v1.1.2) (2025-06-10)
+
+### [1.1.1](https://github.com/jlfguthrie/intellicommerce-woo-mcp/compare/v1.0.1...v1.1.1) (2025-06-10)
+
+
+### ✅ Tests
+
+* Testing commit hooks ([4c36fa7](https://github.com/jlfguthrie/intellicommerce-woo-mcp/commit/4c36fa7ee6550e5311fe0001143a9d89c627465d))
 
 ## [1.1.0](https://github.com/jlfguthrie/intellicommerce-woo-mcp/compare/v1.0.1...v1.1.0) (2025-06-10)
 

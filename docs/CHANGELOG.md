@@ -4,6 +4,13 @@
 
 *Made with 🧡 in Cape Town 🇿🇦*
 
+### [1.1.5](https://github.com/jlfguthrie/intellicommerce-woo-mcp/compare/v1.1.4...v1.1.5) (2025-06-12)
+
+
+### 🧹 Chores
+
+* Remove unnecessary workflow optimization report ([30d94a0](https://github.com/jlfguthrie/intellicommerce-woo-mcp/commit/30d94a0624f91835303f52b9898c11f7d50469fa))
+
 ### [1.1.4](https://github.com/jlfguthrie/intellicommerce-woo-mcp/compare/v1.1.3...v1.1.4) (2025-06-12)
 
 ### [1.1.3](https://github.com/jlfguthrie/intellicommerce-woo-mcp/compare/v1.1.2...v1.1.3) (2025-06-10)
