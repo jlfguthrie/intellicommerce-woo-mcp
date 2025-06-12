@@ -5,6 +5,12 @@
 
 echo "🔍 Running pre-commit validation..."
 
+# Skip husky entirely in CI environments
+if [ -n "$CI" ] || [ -n "$GITHUB_ACTIONS" ] || [ "$HUSKY" = "0" ]; then
+    echo "⚡ CI environment detected, skipping branch protection"
+    exit 0
+fi
+
 # CRITICAL: Check if we're on main branch - block commits to main
 current_branch=$(git branch --show-current)
 if [ "$current_branch" = "main" ]; then
