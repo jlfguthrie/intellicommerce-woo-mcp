@@ -170,6 +170,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        HUSKY: 0  # Disable husky for CI releases
       run: |
         # Set npm authentication
         if [ -n "$NODE_AUTH_TOKEN" ]; then
@@ -185,13 +186,17 @@ jobs:
         # Generate enhanced changelog
         npm run changelog:generate
 
-        # Create release with standard-version
+        # Create release with standard-version (husky disabled)
         npm run release:patch
 
         # Push release to GitHub
         git push --follow-tags origin main
 
         # Automated npm publishing
-        NPM_TOKEN=$NODE_AUTH_TOKEN npm run publish:automated
+        if [ -n "$NODE_AUTH_TOKEN" ]; then
+          NPM_TOKEN=$NODE_AUTH_TOKEN npm run publish:automated
+        else
+          echo "⚠️ NPM_TOKEN not available, skipping npm publish"
+        fi
 
         echo "🎉 Enhanced release and publishing completed!"
