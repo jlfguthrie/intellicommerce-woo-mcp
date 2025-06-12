@@ -1,0 +1,89 @@
+{
+  "clientName": "✨IntelliCommerce✨ Woo MCP Thunder Client",
+  "collectionName": "WooCommerce API Testing",
+  "dateExported": "2025-06-12T12:00:00.000Z",
+  "version": "1.2",
+  "folders": [
+    {
+      "id": "woo-auth",
+      "name": "🔐 Authentication",
+      "containerId": "",
+      "created": "2025-06-12T12:00:00.000Z",
+      "sortNum": 10000
+    },
+    {
+      "id": "woo-products",
+      "name": "🛍️ Products",
+      "containerId": "",
+      "created": "2025-06-12T12:00:00.000Z",
+      "sortNum": 20000
+    },
+    {
+      "id": "woo-orders",
+      "name": "📦 Orders",
+      "containerId": "",
+      "created": "2025-06-12T12:00:00.000Z",
+      "sortNum": 30000
+    },
+    {
+      "id": "woo-customers",
+      "name": "👥 Customers",
+      "containerId": "",
+      "created": "2025-06-12T12:00:00.000Z",
+      "sortNum": 40000
+    }
+  ],
+  "requests": [
+    {
+      "id": "woo-test-connection",
+      "name": "Test WooCommerce Connection",
+      "url": "{{woo_url}}/wp-json/wc/v3/system_status",
+      "method": "GET",
+      "sortNum": 10000,
+      "containerId": "woo-auth",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Basic {{woo_auth_token}}"
+        }
+      ],
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        }
+      ]
+    }
+  ],
+  "environments": [
+    {
+      "id": "woo-dev",
+      "name": "🛠️ WooCommerce Development",
+      "default": true,
+      "global": [
+        {
+          "name": "woo_url",
+          "value": "https://your-woocommerce-site.com",
+          "description": "WooCommerce store URL"
+        },
+        {
+          "name": "woo_consumer_key",
+          "value": "ck_your_consumer_key_here",
+          "description": "WooCommerce Consumer Key"
+        },
+        {
+          "name": "woo_consumer_secret",
+          "value": "cs_your_consumer_secret_here",
+          "description": "WooCommerce Consumer Secret"
+        },
+        {
+          "name": "woo_auth_token",
+          "value": "{{base64(woo_consumer_key:woo_consumer_secret)}}",
+          "description": "Base64 encoded authentication"
+        }
+      ]
+    }
+  ]
+}

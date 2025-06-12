@@ -1,34 +1,51 @@
 {
-  // ✨IntelliCommerce✨ Woo MCP - Recommended Extensions
+  // ✨IntelliCommerce✨ Woo MCP - Optimized Extensions
   // Made with 🧡 in Cape Town 🇿🇦
   // Powered by Xstra AI✨ | Enabled by IntelliCommerce✨
 
   "recommendations": [
-    // Essential TypeScript & JavaScript Development
+    // 🔧 Essential TypeScript & Node.js Development
     "ms-vscode.vscode-typescript-next",
     "esbenp.prettier-vscode",
-    "ms-vscode.vscode-eslint",
+    "christian-kohler.path-intellisense",
 
-    // GitHub Copilot & AI Assistance
+    // 🤖 GitHub Copilot & AI Assistance
     "github.copilot",
     "github.copilot-chat",
+
+    // 🎨 Theme & UI
     "github.github-vscode-theme",
 
-    // Git & Version Control
-    "eamodio.gitlens",
+    // 📦 Git & GitHub Integration
     "github.vscode-pull-request-github",
 
-    // Node.js & Package Management
-    "christian-kohler.npm-intellisense",
+    // 🌐 API Testing for WooCommerce
+    "rangav.vscode-thunder-client",
 
-    // Markdown & Documentation
-    "yzhang.markdown-all-in-one",
-    "davidanson.vscode-markdownlint",
+    // 🎤 Accessibility & Speech Features
+    "ms-vscode.vscode-speech",
 
-    // JSON & Configuration Files
-    "ms-vscode.vscode-json",
+    // ☁️ Cloud Development
+    "github.codespaces"
+  ],
 
-    // REST Client for API Testing (useful for WooCommerce API testing)
-    "humao.rest-client"
+  "unwantedRecommendations": [
+    // Explicitly exclude redundant/unused extensions
+    "ms-vscode.vscode-eslint",           // ESLint disabled for fork compatibility
+    "humao.rest-client",                 // Redundant with Thunder Client
+    "eamodio.gitlens",                   // GitLens - paid but unused
+    "yzhang.markdown-all-in-one",        // Basic markdown support sufficient
+    "davidanson.vscode-markdownlint",    // No strict markdown linting needed
+    "ms-vscode.vscode-json",             // Built-in JSON support sufficient
+    "christian-kohler.npm-intellisense", // Basic IntelliSense sufficient
+    "dart-code.dart-code",               // Mobile dev not needed
+    "dart-code.flutter",                 // Mobile dev not needed
+    "bradlc.vscode-tailwindcss",         // CSS framework not needed
+    "formulahendry.auto-rename-tag",     // HTML features not needed
+    "ms-vscode.live-server",             // Live server not needed
+    "ms-playwright.playwright",          // Browser testing not used
+    "github.vscode-github-actions",      // CLI workflow preferred
+    "gruntfuggly.todo-tree",             // Nice but not essential
+    "github.codespaces"                  // Removed from unwanted, added to recommendations
   ]
 }
