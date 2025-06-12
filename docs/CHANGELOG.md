@@ -4,6 +4,16 @@
 
 *Made with 🧡 in Cape Town 🇿🇦*
 
+### [1.1.9](https://github.com/jlfguthrie/intellicommerce-woo-mcp/compare/v1.1.7...v1.1.9) (2025-06-12)
+
+
+### 🧹 Chores
+
+* Clean up test file after branch protection implementation ([9edf07f](https://github.com/jlfguthrie/intellicommerce-woo-mcp/commit/9edf07f9db286f8d6224dde2c6a5fe10735f6a79))
+* Clean up test files from branch protection testing ([2f6f2f3](https://github.com/jlfguthrie/intellicommerce-woo-mcp/commit/2f6f2f3ea1751800cb88772c0029d193446d8090))
+* Merge feature/general-development into main ([a4bf525](https://github.com/jlfguthrie/intellicommerce-woo-mcp/commit/a4bf525d12d7304d4332f189768f0ab50a546504))
+* Remove test file after branch protection merge ([f41bd01](https://github.com/jlfguthrie/intellicommerce-woo-mcp/commit/f41bd011b4760257448341a7d3d81539b5f7adad))
+
 ### [1.1.8](https://github.com/jlfguthrie/intellicommerce-woo-mcp/compare/v1.1.7...v1.1.8) (2025-06-12)
 
 
