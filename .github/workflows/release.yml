@@ -202,9 +202,17 @@ jobs:
         # Create tarball for release
         npm pack
 
-        # Rename to include version
+        # Check if rename is needed
         VERSION="${{ needs.validate.outputs.new_version }}"
-        mv intellicommerce-woo-mcp-*.tgz "intellicommerce-woo-mcp-${VERSION#v}.tgz"
+        EXPECTED_NAME="intellicommerce-woo-mcp-${VERSION#v}.tgz"
+        ACTUAL_NAME=$(ls intellicommerce-woo-mcp-*.tgz)
+
+        if [ "$ACTUAL_NAME" != "$EXPECTED_NAME" ]; then
+          mv "$ACTUAL_NAME" "$EXPECTED_NAME"
+          echo "Renamed $ACTUAL_NAME to $EXPECTED_NAME"
+        else
+          echo "Package already has correct name: $EXPECTED_NAME"
+        fi
 
     - name: 🚀 Create GitHub Release
       id: release
