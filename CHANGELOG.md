@@ -1,3 +1,9 @@
+## v1.1.14 (2025-06-13)
+
+- Major cleanup: Simplified development workflow
+- Removed CI/CD infrastructure for easier maintenance
+- Made with 🧡 in Cape Town 🇿🇦
+
 # 📈 IntelliCommerce✨ Woo MCP - Changelog
 
 **Made with 🧡 in Cape Town 🇿🇦**
