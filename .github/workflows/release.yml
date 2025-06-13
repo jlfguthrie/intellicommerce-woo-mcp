@@ -16,8 +16,6 @@ on:
           - patch
           - minor
           - major
-  # Remove automatic triggering from pushes to main
-  # This will be triggered manually or via workflow_call from CI/CD
 
 env:
   NODE_ENV: development  # Need devDependencies for TypeScript compilation
