@@ -59,7 +59,17 @@ print_step "Final Build"
 npm run build
 
 print_step "Generate Changelog"
-npm run changelog:generate
+echo "Updating CHANGELOG.md with new version..."
+echo "## v$NEW_VERSION ($(date +%Y-%m-%d))" > /tmp/new_changelog.md
+echo "" >> /tmp/new_changelog.md
+echo "- Major cleanup: Simplified development workflow" >> /tmp/new_changelog.md
+echo "- Removed CI/CD infrastructure for easier maintenance" >> /tmp/new_changelog.md
+echo "- Made with 🧡 in Cape Town 🇿🇦" >> /tmp/new_changelog.md
+echo "" >> /tmp/new_changelog.md
+if [ -f "CHANGELOG.md" ]; then
+    tail -n +1 CHANGELOG.md >> /tmp/new_changelog.md
+fi
+mv /tmp/new_changelog.md CHANGELOG.md
 
 print_step "Git Commit & Tag"
 git add .

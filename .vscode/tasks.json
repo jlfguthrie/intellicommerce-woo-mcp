@@ -95,72 +95,6 @@
       }
     },
     {
-      "label": "🔍 Test MCP Connection",
-      "type": "shell",
-      "command": "npx",
-      "args": ["@modelcontextprotocol/inspector", "node", "${workspaceFolder}/build/server.js"],
-      "group": "test",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      },
-      "dependsOn": "✨ Build IntelliCommerce✨ Woo MCP"
-    },
-    {
-      "label": "🌿 Create Feature Branch",
-      "type": "shell",
-      "command": "bash",
-      "args": ["-c", "read -p 'Feature name (without feature/): ' name && git checkout main && git pull origin main && git checkout -b feature/$name"],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "📤 Push Feature Branch",
-      "type": "shell",
-      "command": "bash",
-      "args": ["-c", "branch=$(git branch --show-current) && git push -u origin $branch"],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "🔀 Create Pull Request",
-      "type": "shell",
-      "command": "gh",
-      "args": ["pr", "create", "--web"],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "🧹 Cleanup Feature Branch",
-      "type": "shell",
-      "command": "bash",
-      "args": ["-c", "current=$(git branch --show-current) && git checkout main && git pull origin main && git branch -d $current"],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
       "label": "🧪 Local Sanity Check",
       "type": "shell",
       "command": "npm",
@@ -174,7 +108,7 @@
       }
     },
     {
-      "label": "� Local Patch Release",
+      "label": "🔧 Local Patch Release",
       "type": "shell",
       "command": "npm",
       "args": ["run", "local:patch"],
@@ -213,7 +147,7 @@
       }
     },
     {
-      "label": "� Global Install",
+      "label": "🌐 Global Install",
       "type": "shell",
       "command": "npm",
       "args": ["run", "global:install"],
@@ -226,7 +160,7 @@
       }
     },
     {
-      "label": "�️ Global Uninstall",
+      "label": "🗑️ Global Uninstall",
       "type": "shell",
       "command": "npm",
       "args": ["run", "global:uninstall"],
@@ -252,10 +186,10 @@
       }
     },
     {
-      "label": "🚀 GitHub Release (Auto)",
+      "label": "📦 Package Validation (Dry Run)",
       "type": "shell",
       "command": "npm",
-      "args": ["run", "release:github"],
+      "args": ["pack", "--dry-run"],
       "group": "build",
       "presentation": {
         "echo": true,
@@ -265,36 +199,10 @@
       }
     },
     {
-      "label": "🚀 GitHub Release Patch",
+      "label": "🚀 Publish to NPM",
       "type": "shell",
       "command": "npm",
-      "args": ["run", "release:github:patch"],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "🚀 GitHub Release Minor",
-      "type": "shell",
-      "command": "npm",
-      "args": ["run", "release:github:minor"],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "🚀 GitHub Release Major",
-      "type": "shell",
-      "command": "npm",
-      "args": ["run", "release:github:major"],
+      "args": ["publish", "--access", "public"],
       "group": "build",
       "presentation": {
         "echo": true,
