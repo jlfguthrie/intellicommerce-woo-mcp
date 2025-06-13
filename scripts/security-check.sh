@@ -61,12 +61,15 @@ fi
 # Verify npmignore is protecting sensitive files
 echo "🔍 Validating npm package contents..."
 excluded_patterns=0
-if npm pack --dry-run 2>/dev/null | grep -E "(\.env)" >/dev/null; then
+
+# Check for .env files in tarball contents (not in prepare script output)
+if npm pack --dry-run 2>/dev/null | grep -E "^npm notice .*(\.env)" >/dev/null; then
     echo "❌ .env files would be included in npm package!"
     ((excluded_patterns++))
 fi
 
-if npm pack --dry-run 2>/dev/null | grep -E "(docs/internal)" >/dev/null; then
+# Check for internal docs in tarball contents
+if npm pack --dry-run 2>/dev/null | grep -E "^npm notice .*(docs/internal)" >/dev/null; then
     echo "❌ Internal documentation would be included in npm package!"
     ((excluded_patterns++))
 fi
