@@ -29,17 +29,32 @@ for (const tool of allTools) {
   if (!handler) continue;
 
   const wrappedHandler = async (args: any) => {
-    // The handler functions are already typed with their specific parameter types
-    const result = await handler(args);
-    return {
-      content: result.toolResult.content.map(
-        (item: { type: string; text: string }) => ({
-          ...item,
-          type: "text" as const,
-        }),
-      ),
-      isError: result.toolResult.isError,
-    };
+    try {
+      // Ensure WooCommerce is initialized when tool is actually called
+      await ensureWooCommerceInitialized();
+
+      // The handler functions are already typed with their specific parameter types
+      const result = await handler(args);
+      return {
+        content: result.toolResult.content.map(
+          (item: { type: string; text: string }) => ({
+            ...item,
+            type: "text" as const,
+          }),
+        ),
+        isError: result.toolResult.isError,
+      };
+    } catch (error) {
+      return {
+        content: [
+          {
+            type: "text" as const,
+            text: `Error: ${error instanceof Error ? error.message : String(error)}`,
+          },
+        ],
+        isError: true,
+      };
+    }
   };
 
   // Register tool with proper description and input schema
@@ -51,32 +66,38 @@ for (const tool of allTools) {
   );
 }
 
-async function main() {
-  // console.log('Starting WooCommerce MCP server...');
-
+// Helper function to validate environment variables when tools are executed
+function validateEnvironmentVariables() {
   if (
     !process.env.WOOCOMMERCE_API_URL ||
     !process.env.WOOCOMMERCE_CONSUMER_KEY ||
     !process.env.WOOCOMMERCE_CONSUMER_SECRET
   ) {
-    // console.error('Missing required environment variables. Please check your .env file.');
-    process.exit(1);
+    throw new Error('Missing required environment variables. Please check your .env file.');
   }
 
   if (
     process.env.WOOCOMMERCE_API_URL?.startsWith("http:") &&
     process.env.WOOCOMMERCE_INSECURE_HTTP !== "true"
   ) {
-    // console.error('Insecure HTTP URL detected. Set WOOCOMMERCE_INSECURE_HTTP=true to allow HTTP connections.');
-    process.exit(1);
+    throw new Error('Insecure HTTP URL detected. Set WOOCOMMERCE_INSECURE_HTTP=true to allow HTTP connections.');
   }
+}
 
-  try {
-    console.log("🚀 Initializing ✨IntelliCommerce✨ Woo MCP Server...");
+// Cache WooCommerce initialization to avoid repeated setup
+let wooCommerceInitialized = false;
+async function ensureWooCommerceInitialized() {
+  if (!wooCommerceInitialized) {
+    validateEnvironmentVariables();
     const { initWooCommerce } = await import("./woocommerce.js");
     await initWooCommerce();
-    console.log("✅ WooCommerce client initialized successfully.");
+    wooCommerceInitialized = true;
+  }
+}
 
+async function main() {
+  try {
+    console.log("🚀 Initializing ✨IntelliCommerce✨ Woo MCP Server...");
     console.log("🔧 Setting up server transport...");
     const transport = new StdioServerTransport();
     await server.connect(transport);
