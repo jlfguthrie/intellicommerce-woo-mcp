@@ -12,8 +12,18 @@ jobs:
   cleanup:
     name: 🧹 Clean up release artifacts
     runs-on: ubuntu-latest
+    # Add explicit guards to ensure this only runs on actual release events
+    if: github.event_name == 'release' && github.event.action == 'published'
 
     steps:
+    - name: 🔍 Debug Event Context
+      run: |
+        echo "Event name: ${{ github.event_name }}"
+        echo "Event action: ${{ github.event.action }}"
+        echo "Release tag: ${{ github.event.release.tag_name || 'N/A' }}"
+        echo "This workflow should ONLY run on release.published events"
+
+
     - name: 📋 Close Release Reminder Issues
       uses: actions/github-script@v7
       with:
