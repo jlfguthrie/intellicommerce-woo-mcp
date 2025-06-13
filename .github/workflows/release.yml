@@ -144,8 +144,8 @@ jobs:
     if: needs.validate.outputs.should_release == 'true'
 
     outputs:
-      release_id: ${{ steps.release.outputs.result }}
-      upload_url: ${{ steps.release.outputs.upload_url }}
+      release_id: ${{ steps.parse_release.outputs.release_id }}
+      upload_url: ${{ steps.parse_release.outputs.upload_url }}
 
     steps:
     - name: 📥 Checkout code
@@ -212,13 +212,12 @@ jobs:
           echo "Renamed $ACTUAL_NAME to $EXPECTED_NAME"
         else
           echo "Package already has correct name: $EXPECTED_NAME"
-        fi
-
-    - name: 🚀 Create GitHub Release
+        fi    - name: 🚀 Create GitHub Release
       id: release
       uses: actions/github-script@v7
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
+        result-encoding: string
         script: |
           const fs = require('fs');
           const version = '${{ needs.validate.outputs.new_version }}';
@@ -243,30 +242,52 @@ jobs:
           console.log(`✅ Created release ${tagName} with ID ${release.data.id}`);
           console.log(`📤 Upload URL: ${release.data.upload_url}`);
 
-          // Set outputs for subsequent steps
-          core.setOutput('upload_url', release.data.upload_url);
-          core.setOutput('release_id', release.data.id);
-
-          return release.data.id;
+          return JSON.stringify({
+            release_id: release.data.id,
+            upload_url: release.data.upload_url
+          });
 
     - name: 📎 Upload Release Asset
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
+      with:    - name: 📎 Parse release result
+      id: parse_release
+      run: |
+        # Parse the JSON result from the previous step
+        RELEASE_DATA='${{ steps.release.outputs.result }}'
+        echo "Release data: $RELEASE_DATA"
+
+        # Extract upload_url using jq
+        UPLOAD_URL=$(echo "$RELEASE_DATA" | jq -r '.upload_url')
+        RELEASE_ID=$(echo "$RELEASE_DATA" | jq -r '.release_id')
+
+        echo "upload_url=$UPLOAD_URL" >> $GITHUB_OUTPUT
+        echo "release_id=$RELEASE_ID" >> $GITHUB_OUTPUT
+
+        echo "✅ Parsed release data:"
+        echo "   Release ID: $RELEASE_ID"
+        echo "   Upload URL: $UPLOAD_URL"
+
     - name: 📎 Upload Release Asset
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         # The file created by npm pack strips the 'v' prefix
         VERSION="${{ needs.validate.outputs.new_version }}"
         ASSET_FILE="intellicommerce-woo-mcp-${VERSION#v}.tgz"
+        UPLOAD_URL="${{ steps.parse_release.outputs.upload_url }}"
 
-        # Upload the asset using curl since the action has path issues
+        echo "📦 Uploading asset: ${ASSET_FILE}"
+        echo "🔗 Upload URL: ${UPLOAD_URL}"
+
+        # Use actions/upload-release-asset action
         curl -L \
           -X POST \
           -H "Accept: application/vnd.github+json" \
-          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Authorization: Bearer $GITHUB_TOKEN" \
           -H "Content-Type: application/gzip" \
-          "${{ steps.release.outputs.upload_url }}?name=${ASSET_FILE}" \
+          "${UPLOAD_URL%\{*}?name=${ASSET_FILE}" \
           --data-binary "@${ASSET_FILE}"
 
         echo "✅ Uploaded asset: ${ASSET_FILE}"
