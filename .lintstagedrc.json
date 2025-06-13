@@ -1,4 +1,0 @@
-{
-  "src/**/*.{ts,js}": ["echo '✨ IntelliCommerce✨ - Skipping lint for upstream compatibility'"],
-  "*.{json,md}": ["echo '✨ IntelliCommerce✨ - Made with 🧡 in Cape Town 🇿🇦'"]
-}

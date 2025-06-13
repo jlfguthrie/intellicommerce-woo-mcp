@@ -1,7 +1,0 @@
-#!/usr/bin/env sh
-# ✨IntelliCommerce✨ Woo MCP - Commit Message Hook
-# Made with 🧡 in Cape Town 🇿🇦
-# Powered by Xstra AI✨ | Enabled by IntelliCommerce✨
-
-echo "📝 Validating commit message format..."
-npx --no -- commitlint --edit ${1}

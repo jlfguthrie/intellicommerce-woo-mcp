@@ -328,8 +328,6 @@ Made with 🧡 in Cape Town 🇿🇦
 | ------------------- | ---------------------------- | --------------------------------------------- |
 | **Setup**           | Installation & Configuration | [📋 Setup Guide](docs/SETUP.md)               |
 | **API Reference**   | Complete Tool Documentation  | [🛠️ API Docs](docs/API.md)                    |
-| **Development**     | Contributing & Building      | [💻 Dev Guide](docs/DEVELOPMENT.md)           |
-| **Publishing**      | npm Release Process          | [📦 Publishing Guide](docs/PUBLISHING.md)     |
 | **Troubleshooting** | Common Issues & Solutions    | [🔧 Troubleshooting](docs/TROUBLESHOOTING.md) |
 | **Changelog**       | Version History              | [📈 Changelog](docs/CHANGELOG.md)             |
 
@@ -418,236 +416,6 @@ Made with 🧡 in Cape Town 🇿🇦
 </tr>
 </table>
 
-## 🧪 Testing & Quality Assurance
-
-**IntelliCommerce✨ Woo MCP** includes a comprehensive testing framework with **48 test cases**
-across **6 test suites** to ensure reliability and security.
-
-### 🧪 Test Suites
-
-<details>
-<summary><strong>🔧 Unit Tests</strong></summary>
-
-```bash
-# Run unit tests
-npm run test:unit
-
-# Test server functionality, tool validation, and core logic
-```
-
-</details>
-
-<details>
-<summary><strong>🔗 Integration Tests</strong></summary>
-
-```bash
-# Run integration tests
-npm run test:integration
-
-# Test MCP server startup, environment configuration, file system integration, and dependency validation
-```
-
-</details>
-
-<details>
-<summary><strong>📋 MCP Protocol Tests</strong></summary>
-
-```bash
-# Run MCP protocol compliance tests
-npm run test:mcp
-
-# Validate JSON-RPC 2.0 format, tool schemas, performance, and security compliance
-```
-
-</details>
-
-<details>
-<summary><strong>🚀 End-to-End Tests</strong></summary>
-
-```bash
-# Run E2E workflow tests
-npm run test:e2e
-
-# Test complete business workflows and cross-entity operations
-```
-
-</details>
-
-<details>
-<summary><strong>🔒 Security Tests</strong></summary>
-
-```bash
-# Run security validation tests
-npm run test:security
-
-# Test credential handling, input validation, data sanitization, and error security
-```
-
-</details>
-
-<details>
-<summary><strong>🔧 Tool Description Tests</strong></summary>
-
-```bash
-# Run tool validation tests
-npm run test:tools
-
-# Test tool schema validation, handler verification, and formatting compatibility
-```
-
-</details>
-
-# Test complete workflows: product lifecycle, order processing, customer management, coupon campaigns
-
-````
-
-</details>
-
-<details>
-<summary><strong>🔒 Security Tests</strong></summary>
-
-```bash
-# Run security validation tests
-npm run test:security
-
-# Test credential handling, input validation, data sanitization, error handling, and authentication
-````
-
-</details>
-
-### 🏃‍♂️ Running Tests
-
-```bash
-# Run all test suites (48 tests across 6 suites)
-npm test
-
-# Run specific test suite
-npm run test:unit        # 4 tests - Server functionality
-npm run test:integration # 10 tests - System integration
-npm run test:mcp         # 6 tests - Protocol compliance
-npm run test:e2e         # 7 tests - Workflow validation
-npm run test:security    # 12 tests - Security validation
-npm run test:tools       # 9 tests - Tool description validation
-
-# Run with coverage
-npm run test:coverage
-
-# Watch mode for development
-npm run test:watch
-
-# CI mode (no watch, coverage)
-npm run test:ci
-```
-
-### 📊 Test Coverage
-
-The testing framework covers:
-
-- ✅ **Unit Testing**: Core functionality and business logic
-- ✅ **Integration Testing**: MCP server and environment setup
-- ✅ **Protocol Testing**: MCP JSON-RPC 2.0 compliance
-- ✅ **E2E Testing**: Complete workflow validation
-- ✅ **Security Testing**: Input validation and credential safety
-- ✅ **Performance Testing**: Response time and load handling
-
-## 🚀 CI/CD & Development Workflow
-
-### 📦 Dependency Management
-
-<details>
-<summary><strong>🔍 Dependency Operations</strong></summary>
-
-```bash
-# Check dependency status
-npm run deps:check
-
-# Security audit
-npm run deps:audit
-
-# Update patch versions
-npm run deps:update:patch
-
-# Update minor versions
-npm run deps:update:minor
-
-# Interactive updates
-npm run deps:update:interactive
-
-# Complete refresh (audit + update + validate)
-npm run deps:fresh
-```
-
-</details>
-
-### 📈 Release Management
-
-<details>
-<summary><strong>🔖 Release Process</strong></summary>
-
-```bash
-# Enhanced release with full validation
-npm run release:enhanced:patch   # Patch version (1.1.0 → 1.1.1)
-npm run release:enhanced:minor   # Minor version (1.1.0 → 1.2.0)
-npm run release:enhanced:major   # Major version (1.1.0 → 2.0.0)
-
-# Standard releases
-npm run release:patch
-npm run release:minor
-npm run release:major
-
-# Check release readiness
-npm run release:check
-```
-
-</details>
-
-### 📈 Changelog Management
-
-```bash
-# Generate comprehensive changelog
-npm run changelog:generate
-
-# Generate dependency-focused changelog
-npm run changelog:deps
-
-# Update changelog with latest changes
-npm run changelog:update
-```
-
-### 🔄 Git Workflow
-
-Using **Feature Branch Workflow** with VS Code tasks:
-
-```bash
-# Create feature branch
-# VS Code: Ctrl+Shift+P → "Tasks: Run Task" → "🌿 Create Feature Branch"
-
-# Push feature branch
-# VS Code: Ctrl+Shift+P → "Tasks: Run Task" → "📤 Push Feature Branch"
-
-# Create pull request
-# VS Code: Ctrl+Shift+P → "Tasks: Run Task" → "🔀 Create Pull Request"
-
-# Cleanup after merge
-# VS Code: Ctrl+Shift+P → "Tasks: Run Task" → "🧹 Cleanup Feature Branch"
-```
-
-### 🔐 Security & Quality
-
-```bash
-# Security validation
-npm run security:check
-
-# Type checking
-npm run typecheck
-
-# Code formatting
-npm run format
-
-# Full validation pipeline
-npm run validate
-```
-
 ## 🤝 Contributing
 
 We welcome contributions! Here's how to get started:
@@ -668,19 +436,14 @@ npm install
 # Start development with watch mode
 npm run dev
 
-# Run tests
-npm test
-
-# Lint code
-npm run lint
+# Type checking
+npm run typecheck
 
 # Format code
 npm run format
 ```
 
 </details>
-
-See our [Contributing Guide](docs/DEVELOPMENT.md) for detailed instructions.
 
 ## 📊 Project Stats
 
@@ -749,27 +512,30 @@ npm run dev
 # Clean build directory
 npm run clean
 
-# Run linting
-npm run lint
+# Type checking
+npm run typecheck
 
 # Format code
 npm run format
+
+# Local sanity check
+npm run sanity:check
+
+# Local manual release
+npm run local:release
 ```
 
 </details>
 
 <details>
-<summary><strong>🧪 Testing</strong></summary>
+<summary><strong>🧪 Local Testing</strong></summary>
 
 ```bash
-# Test MCP connection
+# Test MCP connection with inspector
 npm run test:mcp
 
-# Test WooCommerce API
-npm run test:api
-
-# Run all tests
-npm test
+# Local sanity check
+npm run sanity:check
 ```
 
 </details>
@@ -828,21 +594,7 @@ For more troubleshooting, see our [Troubleshooting Guide](docs/TROUBLESHOOTING.m
 
 </details>
 
-## 📚 Documentation
-
-<div align="center">
-
-| 📖 **Guide**        | 🎯 **Purpose**               | 🔗 **Link**                                   |
-| ------------------- | ---------------------------- | --------------------------------------------- |
-| **Setup**           | Installation & Configuration | [📋 Setup Guide](docs/SETUP.md)               |
-| **API Reference**   | Complete Tool Documentation  | [🛠️ API Docs](docs/API.md)                    |
-| **Development**     | Contributing & Building      | [💻 Dev Guide](docs/DEVELOPMENT.md)           |
-| **Troubleshooting** | Common Issues & Solutions    | [🔧 Troubleshooting](docs/TROUBLESHOOTING.md) |
-| **Changelog**       | Version History              | [📈 Changelog](docs/CHANGELOG.md)             |
-
-</div>
-
-## 🔐 Security
+## Security
 
 - **Never commit your API keys or secrets to version control.** Use environment variables (the
   `.env` file) to store them securely.
@@ -856,22 +608,6 @@ For more troubleshooting, see our [Troubleshooting Guide](docs/TROUBLESHOOTING.m
 - **Rate Limiting:** Implement rate limiting to prevent abuse of your server and the WooCommerce
   API.
 
-## 🤝 Contributing
-
-Contributions are welcome! Please submit a pull request with your changes. Ensure your code follows
-the existing style and includes tests where appropriate.
-
-**Made with 🧡 in Cape Town 🇿🇦** **Powered by Xstra AI✨ | Enabled by IntelliCommerce✨**
-
 ---
 
-### 🏷️ About IntelliCommerce✨
-
-**IntelliCommerce✨** is a Cape Town-based technology company specializing in AI-powered e-commerce
-solutions. We create innovative tools and integrations that bridge the gap between artificial
-intelligence and online commerce platforms.
-
-- **Website**: https://intellicommerce.co.za
-- **Email**: info@intellicommerce.co.za
-- **Developer**: John Guthrie
-- **Location**: Cape Town 🇿🇦
+**Made with 🧡 in Cape Town 🇿🇦** **Powered by Xstra AI✨ | Enabled by IntelliCommerce✨**

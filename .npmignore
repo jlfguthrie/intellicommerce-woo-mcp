@@ -4,8 +4,8 @@
 
 # SECURITY: Never publish source code or development files
 src/
-tests/
 scripts/
+backup/
 
 # SECURITY: Configuration files that might contain secrets
 .env*
@@ -23,6 +23,8 @@ eslint.config.*
 commitlint.config.*
 jest.config.*
 .versionrc.*
+.release-it.json
+.lintstagedrc.json
 
 # SECURITY: Documentation (keep only essential docs in package)
 docs/
@@ -75,6 +77,13 @@ SESSION_*.md
 MCP_STATUS_*.md
 PROJECT_STATUS.md
 COMPLETION_REPORT.md
+TODO
+intellicommerce-woo-mcp.code-workspace
+*.new
+*PLAN*.md
+*HANDOVER*.md
+*INVESTIGATION*.md
+PR_DESCRIPTION.md
 
 # Only include essential production files:
 # - bin/ (CLI executable)
@@ -82,33 +91,4 @@ COMPLETION_REPORT.md
 # - package.json (package metadata)
 # - README.md (essential documentation)
 # - LICENSE (legal requirement)
-yarn-debug.log*
-yarn-error.log*
-
-# Runtime
-node_modules/
-
-# IDE
-*.swp
-*.swo
-
-# Temporary files
-*.tmp
-*.temp
-*.new
-*PLAN*.md
-*HANDOVER*.md
-
-# Project status (internal)
-PROJECT_STATUS.md
-COMPLETION_REPORT.md
-DEVELOPMENT.md
-TODO
-intellicommerce-woo-mcp.code-workspace
-
-# GitHub specific (not needed for npm users)
-.github/
-
-# Development documentation (keep only essential docs)
-docs/DEVELOPMENT.md
-docs/PUBLISHING.md
+# - CHANGELOG.md (version history)

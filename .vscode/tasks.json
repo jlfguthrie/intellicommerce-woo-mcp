@@ -161,10 +161,10 @@
       }
     },
     {
-      "label": "⬆️ Check Upstream MCP Changes",
+      "label": "🧪 Local Sanity Check",
       "type": "shell",
-      "command": "bash",
-      "args": ["-c", "git fetch upstream-mcp && echo '📊 Recent upstream changes in MCP directory:' && git log --oneline upstream-mcp/trunk~10..upstream-mcp/trunk -- mcp/woo/ && echo '' && echo '💡 To view specific changes: git show upstream-mcp/trunk:mcp/woo/<filename>'"],
+      "command": "npm",
+      "args": ["run", "sanity:check"],
       "group": "build",
       "presentation": {
         "echo": true,
@@ -174,10 +174,10 @@
       }
     },
     {
-      "label": "📦 Check Dependencies",
+      "label": "� Local Patch Release",
       "type": "shell",
       "command": "npm",
-      "args": ["run", "deps:check"],
+      "args": ["run", "local:patch"],
       "group": "build",
       "presentation": {
         "echo": true,
@@ -187,10 +187,10 @@
       }
     },
     {
-      "label": "🔒 Audit Dependencies",
+      "label": "📈 Local Minor Release",
       "type": "shell",
       "command": "npm",
-      "args": ["run", "deps:audit"],
+      "args": ["run", "local:minor"],
       "group": "build",
       "presentation": {
         "echo": true,
@@ -200,10 +200,10 @@
       }
     },
     {
-      "label": "🩹 Update Patch Dependencies",
+      "label": "🚀 Local Major Release",
       "type": "shell",
       "command": "npm",
-      "args": ["run", "deps:update:patch"],
+      "args": ["run", "local:major"],
       "group": "build",
       "presentation": {
         "echo": true,
@@ -213,10 +213,10 @@
       }
     },
     {
-      "label": "📈 Update Minor Dependencies",
+      "label": "� Global Install",
       "type": "shell",
       "command": "npm",
-      "args": ["run", "deps:update:minor"],
+      "args": ["run", "global:install"],
       "group": "build",
       "presentation": {
         "echo": true,
@@ -226,10 +226,10 @@
       }
     },
     {
-      "label": "🎯 Interactive Dependency Update",
+      "label": "�️ Global Uninstall",
       "type": "shell",
       "command": "npm",
-      "args": ["run", "deps:update:interactive"],
+      "args": ["run", "global:uninstall"],
       "group": "build",
       "presentation": {
         "echo": true,
@@ -239,62 +239,10 @@
       }
     },
     {
-      "label": "🌿 Fresh Dependencies (Audit + Minor Update + Validate)",
+      "label": "✅ Test Global Installation",
       "type": "shell",
       "command": "npm",
-      "args": ["run", "deps:fresh"],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "📈 Generate Changelog",
-      "type": "shell",
-      "command": "npm",
-      "args": ["run", "changelog:generate"],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "📦 Generate Dependency Changelog",
-      "type": "shell",
-      "command": "npm",
-      "args": ["run", "changelog:deps"],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "🔖 Release Patch Version",
-      "type": "shell",
-      "command": "npm",
-      "args": ["run", "release:patch"],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "🔖 Release Minor Version",
-      "type": "shell",
-      "command": "npm",
-      "args": ["run", "release:minor"],
+      "args": ["run", "global:test"],
       "group": "build",
       "presentation": {
         "echo": true,
@@ -352,97 +300,6 @@
         "echo": true,
         "reveal": "always",
         "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "🎯 GitHub Actions Release (Auto)",
-      "type": "shell",
-      "command": "gh",
-      "args": ["workflow", "run", "release.yml", "--field", "release_type=auto"],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "🩹 GitHub Actions Release Patch",
-      "type": "shell",
-      "command": "gh",
-      "args": ["workflow", "run", "release.yml", "--field", "release_type=patch"],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "📈 GitHub Actions Release Minor",
-      "type": "shell",
-      "command": "gh",
-      "args": ["workflow", "run", "release.yml", "--field", "release_type=minor"],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "🚀 GitHub Actions Release Major",
-      "type": "shell",
-      "command": "gh",
-      "args": ["workflow", "run", "release.yml", "--field", "release_type=major"],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "📊 Open GitHub Actions Workflows",
-      "type": "shell",
-      "command": "open",
-      "args": ["https://github.com/jlfguthrie/intellicommerce-woo-mcp/actions"],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "silent",
-        "focus": false,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "🔄 Open Release Workflow",
-      "type": "shell",
-      "command": "open",
-      "args": ["https://github.com/jlfguthrie/intellicommerce-woo-mcp/actions/workflows/release.yml"],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "silent",
-        "focus": false,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "🛡️ Open Branch Protection Settings",
-      "type": "shell",
-      "command": "open",
-      "args": ["https://github.com/jlfguthrie/intellicommerce-woo-mcp/settings/branches"],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "silent",
-        "focus": false,
         "panel": "shared"
       }
     }
