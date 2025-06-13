@@ -20,7 +20,7 @@ on:
   # This will be triggered manually or via workflow_call from CI/CD
 
 env:
-  NODE_ENV: production
+  NODE_ENV: development  # Need devDependencies for TypeScript compilation
 
 jobs:
   # Pre-flight checks - only run if needed
@@ -48,14 +48,15 @@ jobs:
 
     - name: 📦 Install dependencies
       run: |
-        # Ensure dev dependencies are installed for TypeScript compilation
-        npm ci
+        # Install all dependencies including devDependencies for TypeScript compilation
+        npm ci --include=dev
 
-        # Verify @types/node is available
+        # Verify @types/node and typescript are available
         ls -la node_modules/@types/node/ || echo "⚠️ @types/node not found"
+        ls -la node_modules/typescript/ || echo "⚠️ typescript not found"
 
         # Debug TypeScript configuration
-        echo "TypeScript version: $(npx tsc --version)"
+        echo "TypeScript version: $(npx typescript/bin/tsc --version)"
         echo "Node.js version: $(node --version)"
 
     - name: 🔒 Security validation
@@ -160,7 +161,7 @@ jobs:
         cache: 'npm'
 
     - name: 📦 Install dependencies
-      run: npm ci
+      run: npm ci --include=dev
 
     - name: 📈 Generate changelog
       run: |
@@ -265,7 +266,7 @@ jobs:
         registry-url: 'https://registry.npmjs.org'
 
     - name: 📦 Install dependencies
-      run: npm ci
+      run: npm ci --include=dev
 
     - name: 🏗️ Build for publishing
       run: |
