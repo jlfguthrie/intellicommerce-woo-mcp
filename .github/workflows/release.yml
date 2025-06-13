@@ -47,7 +47,16 @@ jobs:
         cache: 'npm'
 
     - name: 📦 Install dependencies
-      run: npm ci
+      run: |
+        # Ensure dev dependencies are installed for TypeScript compilation
+        npm ci
+
+        # Verify @types/node is available
+        ls -la node_modules/@types/node/ || echo "⚠️ @types/node not found"
+
+        # Debug TypeScript configuration
+        echo "TypeScript version: $(npx tsc --version)"
+        echo "Node.js version: $(node --version)"
 
     - name: 🔒 Security validation
       run: |
